@@ -1,15 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
+import Routes from "./routes";
 
 function App() {
-  return (
-    <Router>
-      <div style={{ display: "flex" }}>
-        <Sidebar />
-      </div>
-    </Router>
-  );
+  return <Routes />;
 }
 
 export default App;

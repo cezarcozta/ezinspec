@@ -1,10 +1,10 @@
-import { Container, Typography } from "@material-ui/core";
+import { MuiContainer, MuiTypography } from "./styles";
 
 const Machines = () => {
   return (
-    <Container>
-      <Typography variant="h3">Machines</Typography>
-      <Typography variant="body1" gutterBottom>
+    <MuiContainer>
+      <MuiTypography variant="h3">Machines</MuiTypography>
+      <MuiTypography variant="body1" gutterBottom>
         Suspendisse leo nunc, mollis ac nulla vitae, varius vestibulum lectus.
         Aliquam sit amet cursus lacus. Donec sit amet venenatis tellus, ut
         ullamcorper nisl. Vestibulum sit amet venenatis ipsum. Aliquam tellus
@@ -18,8 +18,8 @@ const Machines = () => {
         tincidunt massa. Vivamus in consectetur nisl, a convallis ex. Praesent
         eget rhoncus turpis, et iaculis eros. Vivamus volutpat risus at
         fringilla ornare.
-      </Typography>
-    </Container>
+      </MuiTypography>
+    </MuiContainer>
   );
 };
 

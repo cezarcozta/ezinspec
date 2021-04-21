@@ -1,22 +1,49 @@
-import { Button, Container, Typography } from "@material-ui/core";
 import { useHistory } from "react-router";
+import {
+  Card,
+  FormContainer,
+  Input,
+  MuiButton,
+  MuiContainer,
+  MuiTypography,
+} from "./styles";
 
 const LogIn = () => {
   const { push } = useHistory();
 
   const handleLoging = () => {
-    push("/home");
+    push("/dashboard");
   };
 
   return (
-    <Container>
-      <Typography variant="h3">LOGIN</Typography>
-      <Typography variant="body1" gutterBottom>
-        FORMULÁRIO LOGIN
-      </Typography>
+    <MuiContainer>
+      <Card>
+        <MuiTypography variant="h3">LOGIN</MuiTypography>
+        <MuiTypography variant="body1" gutterBottom>
+          FORMULÁRIO LOGIN
+        </MuiTypography>
+        <FormContainer>
+          <Input
+            required
+            id="email"
+            label="e-mail"
+            variant="outlined"
+            type="email"
+            autoComplete="off"
+          />
+          <Input
+            required
+            id="password"
+            label="password"
+            variant="outlined"
+            type="password"
+            autoComplete="off"
+          />
+        </FormContainer>
 
-      <Button onClick={handleLoging}>LogIn</Button>
-    </Container>
+        <MuiButton onClick={handleLoging}>Entrar</MuiButton>
+      </Card>
+    </MuiContainer>
   );
 };
 
