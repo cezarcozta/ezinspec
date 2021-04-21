@@ -1,1 +1,1 @@
-# ezinspec
+# Easy inspec project
