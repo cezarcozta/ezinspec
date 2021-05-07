@@ -2,10 +2,20 @@ import React, { createContext, useCallback, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { api } from "../../services/api";
 
+interface IBussiness {
+  _id: string;
+  bussiness: string;
+}
+
 interface User {
   name: string;
-  cod: number;
   email: string;
+  password: string;
+  passwordConfirm: string;
+  typeBusiness: IBussiness;
+  city: string;
+  province: string;
+  phone: string;
 }
 
 interface AuthState {

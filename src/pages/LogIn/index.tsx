@@ -1,4 +1,6 @@
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
+import { useLoader } from "../../contexts/Loader";
 import {
   Card,
   FormContainer,
@@ -10,9 +12,12 @@ import {
 
 const LogIn = () => {
   const { push } = useHistory();
+  const { hide, show } = useLoader();
 
-  const handleLoging = () => {
+  const handleLogIn = () => {
+    show("loader");
     push("/dashboard");
+    hide("loader");
   };
 
   return (
@@ -41,8 +46,9 @@ const LogIn = () => {
           />
         </FormContainer>
 
-        <MuiButton onClick={handleLoging}>Entrar</MuiButton>
+        <MuiButton onClick={handleLogIn}>Entrar</MuiButton>
       </Card>
+      <Link to="/register/users">Cadastre-se</Link>
     </MuiContainer>
   );
 };

@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import Dashboard from "../pages/Dashboard";
 import LogIn from "../pages/LogIn";
 import Machines from "../pages/Machines";
+import SignUp from "../pages/SignUp";
 import Route from "./Routes";
 
 const Routes = () => {
@@ -11,6 +12,7 @@ const Routes = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={LogIn} />
+        <Route exact path="/register/users" component={SignUp} />
 
         <Sidebar>
           <Route exact path="/dashboard" component={Dashboard} />

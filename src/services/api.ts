@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = '';
+const baseURL = 'https://blooming-thicket-05986.herokuapp.com/';
 
 export const api = axios.create({
   baseURL,
