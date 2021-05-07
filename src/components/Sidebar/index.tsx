@@ -10,7 +10,8 @@ import CastConnectedOutlinedIcon from "@material-ui/icons/CastConnectedOutlined"
 import ExitToAppOutlined from "@material-ui/icons/ExitToAppOutlined";
 import HomeIcon from "@material-ui/icons/Home";
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/Auth";
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: { width: "inherit" },
@@ -19,11 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Sidebar: React.FC = ({ children }) => {
   const classes = useStyles();
-  const { push } = useHistory();
-
-  const handleLogOut = () => {
-    push("/");
-  };
+  const { signOut } = useAuth();
 
   return (
     <div style={{ display: "flex" }}>
@@ -52,7 +49,7 @@ const Sidebar: React.FC = ({ children }) => {
             </ListItem>
           </Link>
           <Link to="#" className={classes.link}>
-            <ListItem button onClick={handleLogOut}>
+            <ListItem button onClick={() => signOut()}>
               <ListItemIcon>
                 <ExitToAppOutlined />
               </ListItemIcon>

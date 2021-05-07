@@ -1,5 +1,5 @@
-import { CircularProgress } from '@material-ui/core';
-import React, { useContext, useEffect, useMemo, useReducer } from 'react';
+import { CircularProgress } from "@material-ui/core";
+import React, { useContext, useEffect, useMemo, useReducer } from "react";
 
 interface ILoaderContext {
   visibility: boolean;
@@ -23,9 +23,9 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) => {
 
   const reducer = (state: string[], action: IAction) => {
     switch (action.type) {
-      case 'show':
+      case "show":
         return Array.from(new Set([...state, action.key]));
-      case 'hide':
+      case "hide":
         return state.filter((e) => e !== action.key);
       default:
         return state;
@@ -40,11 +40,11 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) => {
   const visibility = useMemo(() => state.length > 0, [state]);
 
   const show = (key: string): void => {
-    dispatch({ type: 'show', key });
+    dispatch({ type: "show", key });
   };
 
   const hide = (key: string): void => {
-    dispatch({ type: 'hide', key });
+    dispatch({ type: "hide", key });
   };
 
   return (
@@ -53,15 +53,15 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) => {
       {visibility && (
         <div
           style={{
-            display: 'flex',
-            position: 'absolute',
+            display: "flex",
+            position: "absolute",
             top: 0,
             right: 0,
-            bottom: -200,
-            left: 274,
-            backgroundColor: '#00000033',
-            justifyContent: 'center',
-            alignItems: 'center',
+            bottom: 0,
+            left: 0,
+            backgroundColor: "#00000033",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <CircularProgress color="primary" />

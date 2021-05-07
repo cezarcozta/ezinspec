@@ -15,13 +15,13 @@ const Route: React.FC<RouteProps> = ({
   component: Component,
   ...rest
 }) => {
-  const { user } = useAuth();
+  const { jwt_access } = useAuth();
 
   return (
     <ReactDomRoute
       {...rest}
       render={({ location }) => {
-        return isPrivate === !!user ? (
+        return isPrivate === !!jwt_access ? (
           <Component />
         ) : (
           <Redirect

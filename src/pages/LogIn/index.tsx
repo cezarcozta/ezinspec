@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { useAuth } from "../../contexts/Auth";
+import { useLoader } from "../../contexts/Loader";
 import {
   Card,
   FormContainer,
@@ -8,7 +9,7 @@ import {
   MuiButton,
   MuiContainer,
   MuiTypography,
-  SignUpLink,
+  SignUpLink
 } from "./styles";
 import { logInSchema } from "./validators";
 
@@ -26,13 +27,17 @@ const LogIn = () => {
     resolver: yupResolver(logInSchema),
   });
 
+  const { show, hide } = useLoader();
+
   const { signIn } = useAuth();
 
-  const handleLogIn = handleSubmit(({ email, password }) => {
-    signIn({
+  const handleLogIn = handleSubmit(async ({ email, password }) => {
+    show("Loader");
+    await signIn({
       email,
       password,
     });
+    hide("Loader");
   });
 
   return (

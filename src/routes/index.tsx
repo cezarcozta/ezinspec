@@ -15,8 +15,8 @@ const Routes = () => {
         <Route exact path="/register/users" component={SignUp} />
 
         <Sidebar>
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/machines" component={Machines} />
+          <Route exact path="/dashboard" component={Dashboard} isPrivate />
+          <Route exact path="/machines" component={Machines} isPrivate />
         </Sidebar>
       </Switch>
     </Router>

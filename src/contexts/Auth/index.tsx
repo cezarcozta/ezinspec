@@ -1,26 +1,8 @@
 import React, { createContext, useCallback, useContext, useState } from "react";
 import { api } from "../../services/api";
-import { useLoader } from "../Loader";
-
-interface IBussiness {
-  _id: string;
-  bussiness: string;
-}
-
-interface User {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  typeBusiness: IBussiness;
-  city: string;
-  province: string;
-  phone: string;
-}
 
 interface AuthState {
-  access_token: string;
-  user: User;
+  jwt_access: string;
 }
 
 interface SignInCredentials {
@@ -29,7 +11,7 @@ interface SignInCredentials {
 }
 
 interface AuthContextData {
-  user: User;
+  jwt_access: string;
   signIn(credentials: SignInCredentials): Promise<boolean>;
   signOut(): void;
 }
@@ -37,51 +19,50 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-  const { show, hide } = useLoader();
   const [data, setData] = useState<AuthState>(() => {
-    const access_token = localStorage.getItem("@ezinspec:token");
-    const user = localStorage.getItem("@ezinspec:user");
+    const jwt_access = localStorage.getItem("@ezinspec:jwt_access");
 
-    if (access_token && user) {
-      return { access_token, user: JSON.parse(user) };
+    if (jwt_access) {
+      api.defaults.headers.authorization = `Bearer ${jwt_access}`;
+      return { jwt_access };
     }
 
     return {} as AuthState;
   });
 
-  const signIn = async ({
-    email,
-    password,
-  }: SignInCredentials): Promise<boolean> => {
-    try {
-      const { data } = await api.post("/login", {
-        email,
-        password,
-      });
+  const signIn = useCallback(
+    async ({ email, password }: SignInCredentials): Promise<boolean> => {
+      try {
+        const { data } = await api.post("/login", {
+          email,
+          password,
+        });
 
-      if (!data) {
-        alert("Falhou");
+        if (!data) {
+          alert("Falhou");
+          return false;
+        }
+
+        localStorage.setItem(
+          "@ezinspec:jwt_access",
+          JSON.stringify(data.jwt_access)
+        );
+
+        setData({ jwt_access: data.jwt_access });
+        api.defaults.headers.authorization = `Bearer ${data.jwt_access}`;
+        return true;
+      } catch (error) {
+        alert(error.message);
+        console.log(error.message);
         return false;
       }
-
-      localStorage.setItem("@ezinspec:user", JSON.stringify(data.user));
-
-      localStorage.setItem("@ezinspec:token", JSON.stringify(data.token));
-
-      setData({ access_token: data.token, user: data.user });
-
-      return true;
-    } catch (error) {
-      alert(error.message);
-      console.log(error.message);
-      return false;
-    }
-  };
+    },
+    []
+  );
 
   const signOut = useCallback(() => {
     try {
-      localStorage.removeItem("@ezinspec:token_portal");
-      localStorage.removeItem("@ezinspec:user");
+      localStorage.removeItem("@ezinspec:jwt_access");
       setData({} as AuthState);
     } catch (error) {
       alert(error.message);
@@ -90,7 +71,9 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ jwt_access: data.jwt_access, signIn, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
