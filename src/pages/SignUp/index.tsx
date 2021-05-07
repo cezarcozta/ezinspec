@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Grid } from "@material-ui/core";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useHistory } from "react-router";
@@ -110,167 +111,186 @@ const SignUp = () => {
         <MuiTypography variant="body1" gutterBottom>
           FORMULÁRIO SignUp
         </MuiTypography>
+
         <FormContainer onSubmit={handleSignUp}>
-          <Controller
-            control={control}
-            defaultValue=""
-            name="name"
-            render={({ field }) => (
-              <Input
-                {...field}
-                required
-                label="nome"
-                variant="outlined"
-                type="text"
-                autoComplete="off"
-                error={errors.name ? true : false}
-              />
-            )}
-          />
+          <Grid container direction="column">
+            <Controller
+              control={control}
+              defaultValue=""
+              name="name"
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  required
+                  label="nome"
+                  variant="outlined"
+                  type="text"
+                  autoComplete="off"
+                  error={errors.name ? true : false}
+                  size="small"
+                  fullWidth
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            defaultValue=""
-            name="email"
-            render={({ field }) => (
-              <Input
-                {...field}
-                required
-                label="e-mail"
-                variant="outlined"
-                type="email"
-                autoComplete="off"
-                error={errors.email ? true : false}
-                size="small"
-                fullWidth
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              defaultValue=""
+              name="email"
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  required
+                  label="e-mail"
+                  variant="outlined"
+                  type="email"
+                  autoComplete="off"
+                  error={errors.email ? true : false}
+                  size="small"
+                  fullWidth
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            defaultValue=""
-            name="password"
-            render={({ field }) => (
-              <Input
-                {...field}
-                required
-                id="password"
-                label="senha"
-                variant="outlined"
-                type="password"
-                autoComplete="off"
-                error={errors.password ? true : false}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              defaultValue=""
+              name="password"
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  required
+                  id="password"
+                  label="senha"
+                  variant="outlined"
+                  type="password"
+                  autoComplete="off"
+                  error={errors.password ? true : false}
+                  size="small"
+                  fullWidth
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            defaultValue=""
-            name="passwordConfirm"
-            render={({ field }) => (
-              <Input
-                {...field}
-                required
-                id="passwordConfirmation"
-                label="confirme a senha"
-                variant="outlined"
-                type="password"
-                autoComplete="off"
-                error={errors.passwordConfirm ? true : false}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              defaultValue=""
+              name="passwordConfirm"
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  required
+                  id="passwordConfirmation"
+                  label="confirme a senha"
+                  variant="outlined"
+                  type="password"
+                  autoComplete="off"
+                  error={errors.passwordConfirm ? true : false}
+                  size="small"
+                  fullWidth
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            defaultValue=""
-            name="typeBusiness"
-            render={({ field }) => (
-              <Input
-                {...field}
-                id="typeBusiness"
-                label="area de atuação da empresa"
-                variant="outlined"
-                type="text"
-                autoComplete="off"
-                error={errors.typeBusiness ? true : false}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              defaultValue=""
+              name="typeBusiness"
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  id="typeBusiness"
+                  label="area de atuação da empresa"
+                  variant="outlined"
+                  type="text"
+                  autoComplete="off"
+                  error={errors.typeBusiness ? true : false}
+                  size="small"
+                  fullWidth
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            defaultValue=""
-            name="cep"
-            render={({ field }) => (
-              <Input
-                {...field}
-                required
-                id="cep"
-                label="cep"
-                variant="outlined"
-                type="text"
-                autoComplete="off"
-                error={errors.cep ? true : false}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              defaultValue=""
+              name="cep"
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  required
+                  id="cep"
+                  label="cep"
+                  variant="outlined"
+                  type="text"
+                  autoComplete="off"
+                  error={errors.cep ? true : false}
+                  size="small"
+                  fullWidth
+                />
+              )}
+            />
 
-          <button onClick={() => handleCep()}>Click</button>
+            <button onClick={() => handleCep()}>Click</button>
 
-          <Controller
-            control={control}
-            defaultValue=""
-            name="province"
-            render={({ field }) => (
-              <Input
-                {...field}
-                value={uf}
-                id="uf"
-                label="estado"
-                variant="outlined"
-                type="text"
-                autoComplete="off"
-                error={errors.province ? true : false}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              defaultValue=""
+              name="province"
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  value={uf}
+                  id="uf"
+                  label="estado"
+                  variant="outlined"
+                  type="text"
+                  autoComplete="off"
+                  error={errors.province ? true : false}
+                  size="small"
+                  fullWidth
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            defaultValue=""
-            name="city"
-            render={({ field }) => (
-              <Input
-                {...field}
-                value={city}
-                id="city"
-                label="cidade"
-                variant="outlined"
-                type="text"
-                autoComplete="off"
-                error={errors.city ? true : false}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              defaultValue=""
+              name="city"
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  value={city}
+                  id="city"
+                  label="cidade"
+                  variant="outlined"
+                  type="text"
+                  autoComplete="off"
+                  error={errors.city ? true : false}
+                  size="small"
+                  fullWidth
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            defaultValue=""
-            name="phone"
-            render={({ field }) => (
-              <Input
-                {...field}
-                label="telefone"
-                variant="outlined"
-                type="phone"
-                autoComplete="off"
-                error={errors.phone ? true : false}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              defaultValue=""
+              name="phone"
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  label="telefone"
+                  variant="outlined"
+                  type="phone"
+                  autoComplete="off"
+                  error={errors.phone ? true : false}
+                  size="small"
+                  fullWidth
+                />
+              )}
+            />
+          </Grid>
         </FormContainer>
 
         <MuiButton type="submit">Cadastrar</MuiButton>

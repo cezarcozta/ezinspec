@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { api } from "../../services/api";
+import { useLoader } from "../Loader";
 
 interface IBussiness {
   _id: string;
@@ -37,8 +37,7 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-  const { push } = useHistory();
-
+  const { show, hide } = useLoader();
   const [data, setData] = useState<AuthState>(() => {
     const access_token = localStorage.getItem("@ezinspec:token");
     const user = localStorage.getItem("@ezinspec:user");
@@ -84,12 +83,11 @@ const AuthProvider: React.FC = ({ children }) => {
       localStorage.removeItem("@ezinspec:token_portal");
       localStorage.removeItem("@ezinspec:user");
       setData({} as AuthState);
-      push("/");
     } catch (error) {
       alert(error.message);
       console.log(error.message);
     }
-  }, [push]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>

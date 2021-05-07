@@ -2,6 +2,7 @@ import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
 export const MuiContainer = styled(Container)`
@@ -41,4 +42,9 @@ export const Card = styled(Container)`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const SignUpLink = styled(Link)`
+  margin-top: 20px;
+  text-decoration: none;
 `;

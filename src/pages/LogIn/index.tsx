@@ -1,6 +1,6 @@
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
-import { useLoader } from "../../contexts/Loader";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, useForm } from "react-hook-form";
+import { useAuth } from "../../contexts/Auth";
 import {
   Card,
   FormContainer,
@@ -8,17 +8,32 @@ import {
   MuiButton,
   MuiContainer,
   MuiTypography,
+  SignUpLink,
 } from "./styles";
+import { logInSchema } from "./validators";
+
+interface IFormData {
+  email: string;
+  password: string;
+}
 
 const LogIn = () => {
-  const { push } = useHistory();
-  const { hide, show } = useLoader();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormData>({
+    resolver: yupResolver(logInSchema),
+  });
 
-  const handleLogIn = () => {
-    show("loader");
-    push("/dashboard");
-    hide("loader");
-  };
+  const { signIn } = useAuth();
+
+  const handleLogIn = handleSubmit(({ email, password }) => {
+    signIn({
+      email,
+      password,
+    });
+  });
 
   return (
     <MuiContainer>
@@ -27,28 +42,50 @@ const LogIn = () => {
         <MuiTypography variant="body1" gutterBottom>
           FORMULÁRIO LOGIN
         </MuiTypography>
-        <FormContainer>
-          <Input
-            required
-            id="email"
-            label="e-mail"
-            variant="outlined"
-            type="email"
-            autoComplete="off"
+        <FormContainer onSubmit={handleLogIn}>
+          <Controller
+            control={control}
+            defaultValue="cezarcozta@gmail.com"
+            name="email"
+            render={({ field }) => (
+              <Input
+                {...field}
+                required
+                label="e-mail"
+                variant="outlined"
+                type="email"
+                autoComplete="off"
+                error={errors.email ? true : false}
+                size="small"
+                fullWidth
+              />
+            )}
           />
-          <Input
-            required
-            id="password"
-            label="password"
-            variant="outlined"
-            type="password"
-            autoComplete="off"
+
+          <Controller
+            control={control}
+            defaultValue="Test@123456"
+            name="password"
+            render={({ field }) => (
+              <Input
+                {...field}
+                required
+                id="password"
+                label="senha"
+                variant="outlined"
+                type="password"
+                autoComplete="off"
+                error={errors.password ? true : false}
+                size="small"
+                fullWidth
+              />
+            )}
           />
         </FormContainer>
 
         <MuiButton onClick={handleLogIn}>Entrar</MuiButton>
+        <SignUpLink to="/register/users">Cadastre-se</SignUpLink>
       </Card>
-      <Link to="/register/users">Cadastre-se</Link>
     </MuiContainer>
   );
 };

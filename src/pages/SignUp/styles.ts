@@ -28,7 +28,7 @@ export const MuiTypography = styled(Typography)`
 
 export const FormContainer = styled.form`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 10px;
 `;
 
