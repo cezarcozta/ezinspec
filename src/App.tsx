@@ -6,11 +6,11 @@ import Routes from "./routes";
 
 function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <AppProvider>
+    <AppProvider>
+      <ThemeProvider theme={defaultTheme}>
         <Routes />
-      </AppProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </AppProvider>
   );
 }
 

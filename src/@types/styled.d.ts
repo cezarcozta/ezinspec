@@ -3,16 +3,20 @@ interface IPalette {
   main: string
   contrastText: string
 }
+
 declare module 'styled-components' {
   export interface DefaultTheme {
-    borderRadius: string
+    shape:{
+      borderRadius: string
+    }
     palette: {
       common: {
-        black: string
-        white: string
+        red: string,
+        green: string,
+        yellow: string,
       }
-      primary: IPalette
-      secondary: IPalette
+      primary: IPalette,
+      secondary: IPalette,
    }
   }
 }
