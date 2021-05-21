@@ -1,5 +1,3 @@
-import { Button } from "@material-ui/core";
-import ButtonComponent from "../../components/Button";
 import { MuiContainer, MuiTypography } from "./styles";
 
 const Dashboard = () => {
@@ -17,9 +15,6 @@ const Dashboard = () => {
         ultrices posuere cubilia curae; Suspendisse ut mauris ac risus iaculis
         cursus. Suspendisse auctor laoreet velit, sed pharetra sapien varius non
       </MuiTypography> */}
-      <ButtonComponent label="Teste" />
-      <Button />
-      <Button />
     </MuiContainer>
   );
 };

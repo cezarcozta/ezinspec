@@ -1,22 +1,18 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import LogoBox from "../../components/LogoBox";
 import { useAuth } from "../../contexts/Auth";
 import { useLoader } from "../../contexts/Loader";
 import { useToast } from "../../contexts/Toast";
 import {
-  ButtonText,
+  Btn,
   ForgetPasswordLink,
   FormContainer,
-  H1Header,
-  H2Header,
-  Header,
   Main,
-  MuiButton,
   MuiCard,
   MuiContainer,
   MuiInput,
-  SignUpLink,
 } from "./styles";
 import { logInSchema } from "./validators";
 
@@ -40,7 +36,8 @@ const LogIn = () => {
 
   const { addToast } = useToast();
 
-  const handleLogIn = handleSubmit(async ({ email, password }) => {
+  const handleLogIn = handleSubmit(async ({ email, password }: IFormData) => {
+    console.log("aqui");
     try {
       show("Loader");
       await signIn({
@@ -61,12 +58,9 @@ const LogIn = () => {
 
   return (
     <MuiContainer>
-      <Header>
-        <H1Header>MONITORA</H1Header>
-        <H2Header>FÁCIL</H2Header>
-      </Header>
-
       <Main>
+        <LogoBox />
+
         <MuiCard>
           <FormContainer onSubmit={handleLogIn}>
             <Controller
@@ -106,16 +100,13 @@ const LogIn = () => {
                 />
               )}
             />
+            <Btn type="submit">Entrar</Btn>
+            {/* <Button type="submit">Entrar</Button> */}
           </FormContainer>
-
-          <MuiButton onClick={handleLogIn}>
-            <ButtonText>Entrar</ButtonText>
-          </MuiButton>
 
           <ForgetPasswordLink to="/retrive-password">
             Esqueceu sua senha?
           </ForgetPasswordLink>
-          <SignUpLink to="/register/users">Crie sua conta</SignUpLink>
         </MuiCard>
       </Main>
     </MuiContainer>
