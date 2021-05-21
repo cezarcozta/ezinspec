@@ -1,10 +1,12 @@
+import { Button } from "@material-ui/core";
+import ButtonComponent from "../../components/Button";
 import { MuiContainer, MuiTypography } from "./styles";
 
 const Dashboard = () => {
   return (
     <MuiContainer>
       <MuiTypography variant="h3">Dashboard</MuiTypography>
-      <MuiTypography variant="body1" gutterBottom>
+      {/* <MuiTypography variant="body1" gutterBottom>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis dui
         posuere mauris pellentesque rhoncus vitae eu augue. Curabitur rutrum
         ligula lorem. Suspendisse at turpis vel nisl placerat consectetur eu non
@@ -14,7 +16,10 @@ const Dashboard = () => {
         et porttitor. Vestibulum ante ipsum primis in faucibus orci luctus et
         ultrices posuere cubilia curae; Suspendisse ut mauris ac risus iaculis
         cursus. Suspendisse auctor laoreet velit, sed pharetra sapien varius non
-      </MuiTypography>
+      </MuiTypography> */}
+      <ButtonComponent label="Teste" />
+      <Button />
+      <Button />
     </MuiContainer>
   );
 };

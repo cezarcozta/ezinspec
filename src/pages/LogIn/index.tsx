@@ -1,15 +1,22 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
 import { useAuth } from "../../contexts/Auth";
 import { useLoader } from "../../contexts/Loader";
+import { useToast } from "../../contexts/Toast";
 import {
-  Card,
+  ButtonText,
+  ForgetPasswordLink,
   FormContainer,
-  Input,
+  H1Header,
+  H2Header,
+  Header,
+  Main,
   MuiButton,
+  MuiCard,
   MuiContainer,
-  MuiTypography,
-  SignUpLink
+  MuiInput,
+  SignUpLink,
 } from "./styles";
 import { logInSchema } from "./validators";
 
@@ -31,66 +38,86 @@ const LogIn = () => {
 
   const { signIn } = useAuth();
 
+  const { addToast } = useToast();
+
   const handleLogIn = handleSubmit(async ({ email, password }) => {
-    show("Loader");
-    await signIn({
-      email,
-      password,
-    });
-    hide("Loader");
+    try {
+      show("Loader");
+      await signIn({
+        email,
+        password,
+      });
+      hide("Loader");
+    } catch (error) {
+      const fault = error as AxiosError;
+      hide("Loader");
+      addToast({
+        title: "Login Error",
+        description: `${fault.response?.data.message}`,
+        type: "error",
+      });
+    }
   });
 
   return (
     <MuiContainer>
-      <Card>
-        <MuiTypography variant="h3">LOGIN</MuiTypography>
-        <MuiTypography variant="body1" gutterBottom>
-          FORMULÁRIO LOGIN
-        </MuiTypography>
-        <FormContainer onSubmit={handleLogIn}>
-          <Controller
-            control={control}
-            defaultValue="cezarcozta@gmail.com"
-            name="email"
-            render={({ field }) => (
-              <Input
-                {...field}
-                required
-                label="e-mail"
-                variant="outlined"
-                type="email"
-                autoComplete="off"
-                error={errors.email ? true : false}
-                size="small"
-                fullWidth
-              />
-            )}
-          />
+      <Header>
+        <H1Header>MONITORA</H1Header>
+        <H2Header>FÁCIL</H2Header>
+      </Header>
 
-          <Controller
-            control={control}
-            defaultValue="Test@123456"
-            name="password"
-            render={({ field }) => (
-              <Input
-                {...field}
-                required
-                id="password"
-                label="senha"
-                variant="outlined"
-                type="password"
-                autoComplete="off"
-                error={errors.password ? true : false}
-                size="small"
-                fullWidth
-              />
-            )}
-          />
-        </FormContainer>
+      <Main>
+        <MuiCard>
+          <FormContainer onSubmit={handleLogIn}>
+            <Controller
+              control={control}
+              defaultValue="cezarcozta@gmail.com"
+              name="email"
+              render={({ field }) => (
+                <MuiInput
+                  {...field}
+                  required
+                  label="e-mail"
+                  variant="outlined"
+                  type="email"
+                  autoComplete="off"
+                  error={errors.email ? true : false}
+                  size="small"
+                  fullWidth
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              defaultValue="Test@123456"
+              name="password"
+              render={({ field }) => (
+                <MuiInput
+                  {...field}
+                  required
+                  id="password"
+                  label="senha"
+                  variant="outlined"
+                  type="password"
+                  autoComplete="off"
+                  error={errors.password ? true : false}
+                  size="small"
+                  fullWidth
+                />
+              )}
+            />
+          </FormContainer>
 
-        <MuiButton onClick={handleLogIn}>Entrar</MuiButton>
-        <SignUpLink to="/register/users">Cadastre-se</SignUpLink>
-      </Card>
+          <MuiButton onClick={handleLogIn}>
+            <ButtonText>Entrar</ButtonText>
+          </MuiButton>
+
+          <ForgetPasswordLink to="/retrive-password">
+            Esqueceu sua senha?
+          </ForgetPasswordLink>
+          <SignUpLink to="/register/users">Crie sua conta</SignUpLink>
+        </MuiCard>
+      </Main>
     </MuiContainer>
   );
 };
