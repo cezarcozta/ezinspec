@@ -1,4 +1,4 @@
-import { Button, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
@@ -53,26 +53,6 @@ export const MuiCard = styled(Container)`
   height: 270px;
   width: 300px;
   border-radius: 10px;
-`;
-
-export const Btn = styled(Button)`
-   height: 40px;
-   width: 160px;
-   
-   margin-top: 10px;
-
-   ${({theme}) => `
-      background-color: ${theme.palette.primary.main};
-      color: ${theme.palette.primary.contrastText};
-
-      border-radius: ${theme.shape.borderRadius};
-
-      &:hover {
-         background-color: ${theme.palette.secondary.main};
-      }
-   `};
-   
-   font-weight: bold;
 `;
 
 

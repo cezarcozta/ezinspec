@@ -1,7 +1,5 @@
 import { TextField } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
 import styled from 'styled-components';
 
 export const MuiContainer = styled(Container)`
@@ -10,20 +8,6 @@ export const MuiContainer = styled(Container)`
   justify-content: center;
 
   height: 95vh;
-`;
-
-export const MuiButton = styled(Button)`
-  background-color: black;
-  color: #fff;
-  font-weight: bold;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-  padding: 7px 14px;
-  &:hover {
-    background-color: #c3c3c3;
-  }
-`;
-export const MuiTypography = styled(Typography)`
-  
 `;
 
 export const FormContainer = styled.form`
@@ -37,8 +21,26 @@ export const Input = styled(TextField)`
   width: 350px;
 `;
 
-export const Card = styled(Container)`
+export const MuiInput = styled(TextField)`
+  height: 40px;
+  width: 264px;
+
+  margin: 7px;
+
+  border-radius: 10px;
+
+  background: #F4F4F4;
+`;
+
+export const MuiCard = styled(Container)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+
+  background-color: #FFF;
+
+  height: 270px;
+  width: 300px;
+  border-radius: 10px;
 `;
