@@ -1,11 +1,33 @@
 import CardMachine from "../../components/CardMachine";
-import { MuiContainer, Title } from "./styles";
+import { Item, MuiContainer, Title, TitleContainer } from "./styles";
+
+const machines = [
+  {
+    id: 1,
+    machine: "Máquina 1",
+  },
+  {
+    id: 2,
+    machine: "Máquina 2",
+  },
+  {
+    id: 3,
+    machine: "Máquina 3",
+  },
+];
 
 const Dashboard = () => {
   return (
-    <MuiContainer>
-      <Title variant="h3">Dashboard</Title>
-      <CardMachine title="Máquina 1" />
+    <MuiContainer container>
+      <TitleContainer item xs={12}>
+        <Title variant="h3">Dashboard</Title>
+      </TitleContainer>
+
+      {machines.map((item) => (
+        <Item item xs={4}>
+          <CardMachine title={item.machine} key={item.id} />
+        </Item>
+      ))}
     </MuiContainer>
   );
 };
