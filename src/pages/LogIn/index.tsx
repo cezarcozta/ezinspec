@@ -1,12 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import Button from "../../components/Button";
 import LogoBox from "../../components/LogoBox";
 import { useAuth } from "../../contexts/Auth";
 import { useLoader } from "../../contexts/Loader";
 import { useToast } from "../../contexts/Toast";
 import {
-  Btn,
   ForgetPasswordLink,
   FormContainer,
   Main,
@@ -37,7 +37,6 @@ const LogIn = () => {
   const { addToast } = useToast();
 
   const handleLogIn = handleSubmit(async ({ email, password }: IFormData) => {
-    console.log("aqui");
     try {
       show("Loader");
       await signIn({
@@ -100,8 +99,7 @@ const LogIn = () => {
                 />
               )}
             />
-            <Btn type="submit">Entrar</Btn>
-            {/* <Button type="submit">Entrar</Button> */}
+            <Button type="submit">Entrar</Button>
           </FormContainer>
 
           <ForgetPasswordLink to="/retrive-password">
