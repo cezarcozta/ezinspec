@@ -16,7 +16,7 @@ const Routes = () => {
         <Route exact path="/" component={LogIn} />
         <Route
           exact
-          path="/retrieve-password/email"
+          path="/retrieve-password/"
           component={RetrivievePassword}
         />
         <Route exact path="/retrieve-password/code" component={InputCode} />
