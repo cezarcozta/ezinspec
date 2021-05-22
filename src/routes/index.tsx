@@ -4,7 +4,9 @@ import Sidebar from "../components/Sidebar";
 import Dashboard from "../pages/Dashboard";
 import LogIn from "../pages/LogIn";
 import Machines from "../pages/Machines";
-import SignUp from "../pages/SignUp";
+import RetrivievePassword from "../pages/RetrievePassword";
+import InputCode from "../pages/RetrievePassword/components/InputCode";
+import InputNewPassword from "../pages/RetrievePassword/components/InputNewPassword";
 import Route from "./Routes";
 
 const Routes = () => {
@@ -12,7 +14,17 @@ const Routes = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={LogIn} />
-        <Route exact path="/register/users" component={SignUp} />
+        <Route
+          exact
+          path="/retrieve-password/email"
+          component={RetrivievePassword}
+        />
+        <Route exact path="/retrieve-password/code" component={InputCode} />
+        <Route
+          exact
+          path="/retrieve-password/new-password"
+          component={InputNewPassword}
+        />
 
         <Sidebar>
           <Route exact path="/dashboard" component={Dashboard} isPrivate />

@@ -9,6 +9,8 @@ export const defaultTheme: DefaultTheme = {
       red: "#F31818",
       green: "#00D23B",
       yellow: "#F6FB07",
+      darkGray: "#474747",
+      white: "#FFFFFF",
     },
     primary: {
       main: "#004BDCB0",

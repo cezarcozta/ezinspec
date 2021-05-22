@@ -14,6 +14,8 @@ declare module 'styled-components' {
         red: string,
         green: string,
         yellow: string,
+        darkGray: string,
+        white: string,
       }
       primary: IPalette,
       secondary: IPalette,

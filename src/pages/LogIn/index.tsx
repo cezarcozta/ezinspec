@@ -102,7 +102,7 @@ const LogIn = () => {
             <Button type="submit">Entrar</Button>
           </FormContainer>
 
-          <ForgetPasswordLink to="/retrive-password">
+          <ForgetPasswordLink to="/retrieve-password/email">
             Esqueceu sua senha?
           </ForgetPasswordLink>
         </MuiCard>

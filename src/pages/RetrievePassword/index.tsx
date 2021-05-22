@@ -1,12 +1,19 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AxiosError } from "axios";
 import { Controller, useForm } from "react-hook-form";
+import { useHistory } from "react-router";
 import Button from "../../components/Button";
 import LogoBox from "../../components/LogoBox";
 import { useLoader } from "../../contexts/Loader";
 import { useToast } from "../../contexts/Toast";
-import { FormContainer, MuiCard, MuiContainer, MuiInput } from "./styles";
-import { retrievePasswordSchema } from "./validators";
+import {
+  FormContainer,
+  MuiCard,
+  MuiContainer,
+  MuiInput,
+  MuiText,
+} from "./styles";
+import { retrievePasswordSchema } from "./validators/InputEmail";
 
 interface IFormData {
   email: string;
@@ -21,6 +28,8 @@ const RetrivievePassword = () => {
     resolver: yupResolver(retrievePasswordSchema),
   });
 
+  const { push } = useHistory();
+
   const { show, hide } = useLoader();
 
   const { addToast } = useToast();
@@ -32,6 +41,7 @@ const RetrivievePassword = () => {
         retrievePassword: `retrivePassword - ${email}`,
       });
       hide("Loader");
+      push("/retrieve-password/code");
     } catch (error) {
       const fault = error as AxiosError;
       hide("Loader");
@@ -48,10 +58,11 @@ const RetrivievePassword = () => {
       <LogoBox />
 
       <MuiCard>
+        <MuiText>Informe seu e-mail e te enviaremos um código</MuiText>
         <FormContainer onSubmit={handleNewPassword}>
           <Controller
             control={control}
-            defaultValue="cezarcozta@gmail.com"
+            defaultValue=""
             name="email"
             render={({ field }) => (
               <MuiInput

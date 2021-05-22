@@ -5,7 +5,7 @@ export const ButtonComponent = styled(Button)`
    height: 40px;
    width: 160px;
    
-   margin-top: 10px;
+   margin: 10px;
 
    ${({theme}) => `
       background-color: ${theme.palette.primary.main};
