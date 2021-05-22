@@ -11,6 +11,8 @@ export const MuiContainer = styled(Container)`
   align-items: center;
 `;
 
-export const MuiTypography = styled(Typography)`
-  
+export const Title = styled(Typography)`
+  ${({theme}) => `
+      color: ${theme.palette.primary.main};
+   `};
 `;
