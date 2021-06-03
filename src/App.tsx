@@ -1,29 +1,26 @@
-import { Connector } from "mqtt-react-hooks";
-import React from "react";
+import { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import { defaultTheme } from "../src/styles/Theme";
 import AppProvider from "./contexts/index";
 import Routes from "./routes";
+import { io } from "socket.io-client";
+
+
 
 function App() {
+
+  useEffect(() => {
+    const socket = io("http//:localhost:3001", { transports: ["websocket"] });
+    socket.io.on("reconnect_attempt", () => {
+      console.log('aqui');
+    });
+  }, [])
+
+
   return (
     <AppProvider>
       <ThemeProvider theme={defaultTheme}>
-        <Connector
-          options={{
-            // port: 18871,
-            // host: "driver-01.cloudmqtt.com",
-            // username: "ftbcblmv",
-            // password: "KAo4Zn70NpYM",
-            // queueQoSZero: true,
-            // protocol: "ws",
-            keepalive: 0,
-            clientId: "front",
-          }}
-          brokerUrl="ws://ftbcblmv:KAo4Zn70NpYM@driver-01.cloudmqtt.com"
-        >
-          <Routes />
-        </Connector>
+        <Routes />
       </ThemeProvider>
     </AppProvider>
   );
