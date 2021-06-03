@@ -9,12 +9,16 @@ function App() {
   useEffect(() => {
     try {
       const socket = io("http//:localhost:5000", { transports: ["websocket"] });
-      console.log(socket);
+      console.log({
+        socket: socket,
+      });
       socket.io.on("reconnect_attempt", () => {
         console.log("aqui");
       });
     } catch (error) {
-      console.log(error);
+      console.log({
+        error: error,
+      });
     }
   }, []);
 
