@@ -1,3 +1,4 @@
+import Button from "../../components/Button";
 import CardMachine from "../../components/CardMachine";
 import { Item, MuiContainer, Title, TitleContainer } from "./styles";
 
@@ -23,11 +24,16 @@ const Dashboard = () => {
         <Title variant="h3">Dashboard</Title>
       </TitleContainer>
 
-      {machines.map((item) => (
-        <Item item xs={4}>
-          <CardMachine title={item.machine} key={item.id} />
-        </Item>
-      ))}
+      {machines &&
+        machines.map((item) => (
+          <Item item xs={4}>
+            <CardMachine title={item.machine} key={item.id} />
+          </Item>
+        ))}
+
+      <Item item xs={4}>
+        <Button onClick={() => ({})}>ADD MAQUINA</Button>
+      </Item>
     </MuiContainer>
   );
 };

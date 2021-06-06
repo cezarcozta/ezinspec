@@ -22,4 +22,4 @@ export const Item = styled(Grid)`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`; 
