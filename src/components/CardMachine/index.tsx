@@ -11,8 +11,8 @@ import {
 
 type ICardMachine = {
   title: string;
-  isOn: boolean;
-  state: "AUTO" | "MANUAL" | "STOPPED";
+  isOn?: boolean;
+  state?: "AUTO" | "MANUAL" | "STOPPED";
 };
 
 const CardMachine: React.FC<ICardMachine> = ({ title, isOn, state }) => {
