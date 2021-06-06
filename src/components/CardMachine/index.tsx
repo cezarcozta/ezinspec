@@ -1,4 +1,4 @@
-import { Chip, Switch } from "@material-ui/core";
+import { Chip } from "@material-ui/core";
 import React from "react";
 import {
   CardComponent,
@@ -6,15 +6,16 @@ import {
   CardComponentHeader,
   PowerContent,
   StateContent,
-  Text,
   TimeContent,
 } from "./styles";
 
 type ICardMachine = {
   title: string;
+  isOn: boolean;
+  state: "AUTO" | "MANUAL" | "STOPPED";
 };
 
-const CardMachine: React.FC<ICardMachine> = ({ title }) => {
+const CardMachine: React.FC<ICardMachine> = ({ title, isOn, state }) => {
   const date = new Date().toISOString();
   return (
     <CardComponent>
@@ -22,17 +23,31 @@ const CardMachine: React.FC<ICardMachine> = ({ title }) => {
 
       <CardComponentContent>
         <PowerContent>
-          <Text variant="subtitle2">OFF</Text>
-          <Switch />
-          <Text variant="subtitle2">ON</Text>
+          <div className={isOn ? "on" : ""}>ON</div>
+          <div className={isOn ? "" : "off"}>OFF</div>
         </PowerContent>
       </CardComponentContent>
 
       <CardComponentContent>
         <StateContent>
-          <Chip label="PARADA" size="small" style={{ margin: "2px" }} />
-          <Chip label="MANUAL" size="small" style={{ margin: "1px" }} />
-          <Chip label="AUTO" size="small" style={{ margin: "2px" }} />
+          <Chip
+            className={state ? "on" : ""}
+            label="PARADA"
+            size="small"
+            style={{ margin: "2px" }}
+          />
+          <Chip
+            className={state !== "AUTO" ? (state === "MANUAL" ? "" : "") : ""}
+            label="MANUAL"
+            size="small"
+            style={{ margin: "1px" }}
+          />
+          <Chip
+            className={state ? "on" : ""}
+            label="AUTO"
+            size="small"
+            style={{ margin: "2px" }}
+          />
         </StateContent>
       </CardComponentContent>
 

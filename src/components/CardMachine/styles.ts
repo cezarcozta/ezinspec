@@ -36,6 +36,25 @@ export const PowerContent = styled.div`
    display: flex;
    align-items: center;
    justify-content: center;
+
+   div{
+      height: 40px;
+      width: 85px;
+      border-radius: 0px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .on {
+      background-color: #00D23B;
+      color: #fff;
+   }
+   .off {
+      background-color: #F31818;
+      color: #fff;
+   }
 `;
 
 export const StateContent = styled.div`
