@@ -72,7 +72,11 @@ const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ jwt_access: data.jwt_access, signIn, signOut }}
+      value={{
+        jwt_access: data.jwt_access,
+        signIn,
+        signOut,
+      }}
     >
       {children}
     </AuthContext.Provider>
