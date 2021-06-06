@@ -1,6 +1,21 @@
 import React, { createContext, useCallback, useContext, useState } from "react";
 import { api } from "../../services/api";
 
+interface IUser {
+  level_subscriber: string;
+  state: string;
+  type: string;
+  _id: string;
+  name: string;
+  email: string;
+  type_business: string;
+  city: string;
+  province: string;
+  phone: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 interface AuthState {
   jwt_access: string;
 }
@@ -24,6 +39,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
     if (jwt_access) {
       api.defaults.headers.authorization = `Bearer ${jwt_access}`;
+
       return { jwt_access };
     }
 
@@ -42,14 +58,12 @@ const AuthProvider: React.FC = ({ children }) => {
           alert("Falhou");
           return false;
         }
+        api.defaults.headers.authorization = `Bearer ${data.jwt_access}`;
 
-        localStorage.setItem(
-          "@ezinspec:jwt_access",
-          JSON.stringify(data.jwt_access)
-        );
+        localStorage.setItem("@ezinspec:jwt_access", data.jwt_access);
 
         setData({ jwt_access: data.jwt_access });
-        api.defaults.headers.authorization = `Bearer ${data.jwt_access}`;
+
         return true;
       } catch (error) {
         alert(error.message);
@@ -69,6 +83,22 @@ const AuthProvider: React.FC = ({ children }) => {
       console.log(error.message);
     }
   }, []);
+
+  // const getUserProfile = useCallback(async () => {
+  //   try {
+  //     const { data } = await api.get<IUser>("/users/profile");
+  //     if (!data) {
+  //       return {} as IUser;
+  //     }
+  //     console.log({ user: data });
+  //     const userData = data as IUser;
+  //     return userData;
+  //   } catch (error) {
+  //     const axiosError = error as AxiosError;
+  //     console.log(axiosError);
+  //     return {} as IUser;
+  //   }
+  // }, []);
 
   return (
     <AuthContext.Provider
