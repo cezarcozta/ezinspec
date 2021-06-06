@@ -1,31 +1,29 @@
-import { useEffect } from "react";
-import { io } from "socket.io-client";
+import { Connector } from "mqtt-react-hooks";
+import React from "react";
 import { ThemeProvider } from "styled-components";
 import { defaultTheme } from "../src/styles/Theme";
 import AppProvider from "./contexts/index";
 import Routes from "./routes";
 
 function App() {
-  useEffect(() => {
-    try {
-      const socket = io("http//:localhost:5000", { transports: ["websocket"] });
-      console.log({
-        socket: socket,
-      });
-      socket.io.on("reconnect_attempt", () => {
-        console.log("aqui");
-      });
-    } catch (error) {
-      console.log({
-        error: error,
-      });
-    }
-  }, []);
 
   return (
     <AppProvider>
       <ThemeProvider theme={defaultTheme}>
-        <Routes />
+        <Connector
+          options={{
+            port: 38871,
+            hostname: "driver.cloudmqtt.com",
+            username: "ftbcblmv",
+            password: "KAo4Zn70NpYM",
+            queueQoSZero: true,
+            protocol: "wss",
+            keepalive: 0,
+            path: '/mqtt'
+          }}
+        >
+          <Routes />
+        </Connector>
       </ThemeProvider>
     </AppProvider>
   );

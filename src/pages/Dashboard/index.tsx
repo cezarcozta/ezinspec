@@ -17,6 +17,7 @@ const machines = [
 ];
 
 const Dashboard = () => {
+
   return (
     <MuiContainer container>
       <TitleContainer item xs={12}>
