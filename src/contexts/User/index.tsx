@@ -1,29 +1,16 @@
 import { AxiosError } from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { IUserProfile } from "../../dtos/User";
 import { api } from "../../services/api";
 
-interface IUser {
-  level_subscriber: string;
-  state: string;
-  type: string;
-  _id: string;
-  name: string;
-  email: string;
-  type_business: string;
-  city: string;
-  province: string;
-  phone: number;
-  createdAt: Date;
-}
-
 interface UserContextData {
-  user: IUser;
+  user: IUserProfile;
 }
 
 const UserContext = createContext<UserContextData>({} as UserContextData);
 
 const UserProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<IUser>({} as IUser);
+  const [user, setUser] = useState<IUserProfile>({} as IUserProfile);
 
   useEffect(() => {
     async function loadUser() {

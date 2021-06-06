@@ -1,21 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from "react";
 import { api } from "../../services/api";
 
-interface IUser {
-  level_subscriber: string;
-  state: string;
-  type: string;
-  _id: string;
-  name: string;
-  email: string;
-  type_business: string;
-  city: string;
-  province: string;
-  phone: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
 interface AuthState {
   jwt_access: string;
 }
@@ -83,22 +68,6 @@ const AuthProvider: React.FC = ({ children }) => {
       console.log(error.message);
     }
   }, []);
-
-  // const getUserProfile = useCallback(async () => {
-  //   try {
-  //     const { data } = await api.get<IUser>("/users/profile");
-  //     if (!data) {
-  //       return {} as IUser;
-  //     }
-  //     console.log({ user: data });
-  //     const userData = data as IUser;
-  //     return userData;
-  //   } catch (error) {
-  //     const axiosError = error as AxiosError;
-  //     console.log(axiosError);
-  //     return {} as IUser;
-  //   }
-  // }, []);
 
   return (
     <AuthContext.Provider

@@ -1,15 +1,13 @@
-interface IBussiness {
+export interface IUserProfile {
+  level_subscriber: string;
+  state: string;
+  type: string;
   _id: string;
-  bussiness: string;
-}
-
-export interface User {
   name: string;
   email: string;
-  password: string;
-  passwordConfirm: string;
-  typeBusiness: IBussiness;
+  type_business: string;
   city: string;
   province: string;
-  phone: string;
+  phone: number;
+  createdAt: Date;
 }
