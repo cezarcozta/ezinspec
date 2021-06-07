@@ -72,7 +72,7 @@ const Sidebar: React.FC = ({ children }) => {
               <ListItemText primary={"Relatórios"} />
             </ListItem>
           </Link>
-          <Link to="#" className={classes.link}>
+          <Link to="/machines" className={classes.link}>
             <ListItem button>
               <ListItemIcon>
                 <SettingsOutlinedIcon color="primary" />

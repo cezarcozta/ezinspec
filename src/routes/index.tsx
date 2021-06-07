@@ -9,6 +9,7 @@ import InputCode from "../pages/RetrievePassword/components/InputCode";
 import InputNewPassword from "../pages/RetrievePassword/components/InputNewPassword";
 import Route from "./Routes";
 
+
 const Routes = () => {
   return (
     <Router>

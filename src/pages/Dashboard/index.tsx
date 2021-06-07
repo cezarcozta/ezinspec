@@ -1,40 +1,73 @@
-import Button from "../../components/Button";
+import { IMessage, useSubscription } from "mqtt-react-hooks";
+import { useEffect, useState } from "react";
+import { ButtonComponent } from "../../components/Button/styles";
 import CardMachine from "../../components/CardMachine";
+import { NewMachineModal } from "../../components/NewMachineModal";
+import { useMachine } from "../../contexts/Machines";
 import { Item, MuiContainer, Title, TitleContainer } from "./styles";
-
-const machines = [
-  {
-    id: 1,
-    machine: "Máquina 1",
-  },
-  {
-    id: 2,
-    machine: "Máquina 2",
-  },
-  {
-    id: 3,
-    machine: "Máquina 3",
-  },
-];
-
 const Dashboard = () => {
+  const { machines } = useMachine();
+
+  const [messages, setMessages] = useState<IMessage[]>([]);
+
+  const dataSubscribe = useSubscription(
+    machines.map((machine) => machine.urlConnection)
+  );
+
+  useEffect(() => {
+    if (dataSubscribe.message)
+      setMessages((msgs: any) => [...msgs, dataSubscribe.message]);
+  }, [dataSubscribe.message]);
+
+  const [isNewMachineModalOpen, setIsNewMachineModalOpen] = useState(false);
+
+  function handleOpenNewMachineModal() {
+    setIsNewMachineModalOpen(true);
+  }
+
+  function handleCloseNewMachineModal() {
+    setIsNewMachineModalOpen(false);
+  }
+
+  console.log({ machines: machines });
+
+  console.log({
+    subscribeData: dataSubscribe,
+  });
+
   return (
-    <MuiContainer container>
-      <TitleContainer item xs={12}>
-        <Title variant="h3">Dashboard</Title>
-      </TitleContainer>
+    <>
+      <MuiContainer container>
+        <TitleContainer item xs={12}>
+          <Title variant="h3">Dashboard</Title>
+        </TitleContainer>
 
-      {machines &&
-        machines.map((item) => (
-          <Item item xs={4}>
-            <CardMachine title={item.machine} key={item.id} />
-          </Item>
-        ))}
+        {machines &&
+          machines.map((machine, index) => {
+            return (
+              <Item key={index} item xs={4}>
+                <CardMachine
+                  index={index}
+                  title={machine.machineName}
+                  key={machine._id}
+                  isOn={true}
+                  state={"AUTO"}
+                  messages={messages}
+                  topic={machine.urlConnection}
+                />
+              </Item>
+            );
+          })}
 
-      <Item item xs={4}>
-        <Button onClick={() => ({})}>ADD MAQUINA</Button>
-      </Item>
-    </MuiContainer>
+        <ButtonComponent onClick={handleOpenNewMachineModal}>
+          Adicionar Máquina
+        </ButtonComponent>
+      </MuiContainer>
+      <NewMachineModal
+        isOpen={isNewMachineModalOpen}
+        onRequestClose={handleCloseNewMachineModal}
+      />
+    </>
   );
 };
 
