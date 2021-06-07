@@ -45,7 +45,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
         localStorage.setItem(
           "@ezinspec:jwt_access",
-          JSON.stringify(data.jwt_access)
+          data.jwt_access
         );
 
         setData({ jwt_access: data.jwt_access });

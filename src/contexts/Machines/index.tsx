@@ -48,7 +48,6 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
         alert(axiosError.response?.data.message);
       }
     }
-
     if (localStorage.getItem("@ezinspec:jwt_access")) {
       loadMachines();
     }
