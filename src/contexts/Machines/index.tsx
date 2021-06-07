@@ -42,6 +42,9 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
         setMachines(data);
       } catch (error) {
         const axiosError = error as AxiosError;
+        console.log({
+          error: axiosError,
+        });
         alert(axiosError.response?.data.message);
       }
     }

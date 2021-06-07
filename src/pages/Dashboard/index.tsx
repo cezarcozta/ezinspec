@@ -5,35 +5,11 @@ import { NewMachineModal } from "../../components/NewMachineModal";
 import { useMachine } from "../../contexts/Machines";
 import { Item, MuiContainer, Title, TitleContainer } from "./styles";
 
-// enum state {
-//   "AUTO",
-//   "MANUAL",
-//   "STOPPED",
-// }
-
-// const machinesMOCK = [
-//   {
-//     id: 1,
-//     machine: "Máquina 1",
-//     power: true,
-//     state: state[1],
-//   },
-//   {
-//     id: 2,
-//     machine: "Máquina 2",
-//     power: false,
-//     state: state[2],
-//   },
-//   {
-//     id: 3,
-//     power: true,
-//     machine: "Máquina 3",
-//     state: state[3],
-//   },
-// ];
-
 const Dashboard = () => {
   const { machines } = useMachine();
+
+  console.log({ machines: machines });
+
   const [isNewMachineModalOpen, setIsNewMachineModalOpen] = useState(false);
 
   function handleOpenNewMachineModal() {
@@ -59,6 +35,7 @@ const Dashboard = () => {
                 key={item._id}
                 isOn={true}
                 state={"AUTO"}
+                urlConnection={item.urlConnection}
               />
             </Item>
           ))}
