@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:5000/";
+const baseURL = "https://blooming-thicket-05986.herokuapp.com/";
 
 export const api = axios.create({
   headers: {
