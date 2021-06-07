@@ -4,9 +4,9 @@ import { ThemeProvider } from "styled-components";
 import { defaultTheme } from "../src/styles/Theme";
 import AppProvider from "./contexts/index";
 import Routes from "./routes";
+import { GlobalStyle } from "./styles/global";
 
 function App() {
-
   return (
     <AppProvider>
       <ThemeProvider theme={defaultTheme}>
@@ -19,11 +19,13 @@ function App() {
             queueQoSZero: true,
             protocol: "wss",
             keepalive: 0,
-            path: '/mqtt'
+            path: "/mqtt",
           }}
         >
           <Routes />
+          <GlobalStyle />
         </Connector>
+        <GlobalStyle />
       </ThemeProvider>
     </AppProvider>
   );
