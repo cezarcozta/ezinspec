@@ -61,7 +61,7 @@ const CardMachine: React.FC<ICardMachine> = ({
       </CardComponentContent>
 
       <CardComponentContent>
-        {messages?.find((msg) => msg.topic === topic)?.message}
+        {messages?.find((item) => item.topic === topic)?.message?.toString()}
         {/* <Typography>{dataSubscribe.connectionStatus.toString()}</Typography>
         <Typography>
           {dataSubscribe.message ? dataSubscribe.message?.message : null}
