@@ -1,5 +1,5 @@
-import { Chip, Typography } from "@material-ui/core";
-import { useSubscription } from "mqtt-react-hooks";
+import { Chip } from "@material-ui/core";
+import { IMessage } from "mqtt-react-hooks";
 import React from "react";
 import {
   CardComponent,
@@ -13,25 +13,22 @@ type ICardMachine = {
   title: string;
   isOn?: boolean;
   state?: "AUTO" | "MANUAL" | "STOPPED";
-  urlConnection: string;
+  messages?: IMessage[];
+  topic: string | string[];
+  index: number;
 };
 
 const CardMachine: React.FC<ICardMachine> = ({
   title,
   isOn,
   state,
-  urlConnection,
+  messages,
+  topic,
+  index,
 }) => {
-  const date = new Date().toISOString();
-
-  const dataSubscribe = useSubscription(urlConnection);
-  console.log({
-    subscribeData: dataSubscribe,
-  });
-
   return (
     <CardComponent>
-      <CardComponentHeader title={title} />
+      <CardComponentHeader title={title + ` - ${String(index)}`} />
 
       <CardComponentContent>
         <PowerContent>
@@ -64,16 +61,15 @@ const CardMachine: React.FC<ICardMachine> = ({
       </CardComponentContent>
 
       <CardComponentContent>
-        <Typography>{dataSubscribe.connectionStatus.toString()}</Typography>
+        {messages?.find((msg) => msg.topic === topic)?.message}
+        {/* <Typography>{dataSubscribe.connectionStatus.toString()}</Typography>
         <Typography>
           {dataSubscribe.message ? dataSubscribe.message?.message : null}
         </Typography>
         <Typography>
           {dataSubscribe.client ? dataSubscribe.client.connected : null}
         </Typography>
-        <Typography>
-          {dataSubscribe.topic ? dataSubscribe.topic : null}
-        </Typography>
+        <Grid item>{dataSubscribe.topic ? dataSubscribe.topic : null}</Grid> */}
         {/* <TimeContent>
           <Chip label={date} style={{ margin: "2px" }} />
           <Chip label={"Ultimo Ciclo"} style={{ margin: "2px" }} />

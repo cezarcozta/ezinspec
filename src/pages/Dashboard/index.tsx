@@ -1,14 +1,23 @@
-import { useState } from "react";
+import { IMessage, useSubscription } from "mqtt-react-hooks";
+import { useEffect, useState } from "react";
 import { ButtonComponent } from "../../components/Button/styles";
 import CardMachine from "../../components/CardMachine";
 import { NewMachineModal } from "../../components/NewMachineModal";
 import { useMachine } from "../../contexts/Machines";
 import { Item, MuiContainer, Title, TitleContainer } from "./styles";
-
 const Dashboard = () => {
   const { machines } = useMachine();
 
-  console.log({ machines: machines });
+  const [messages, setMessages] = useState<IMessage[]>([]);
+
+  const dataSubscribe = useSubscription(
+    machines.map((machine) => machine.urlConnection)
+  );
+
+  useEffect(() => {
+    if (dataSubscribe.message)
+      setMessages((msgs: any) => [...msgs, dataSubscribe.message]);
+  }, [dataSubscribe.message]);
 
   const [isNewMachineModalOpen, setIsNewMachineModalOpen] = useState(false);
 
@@ -20,6 +29,12 @@ const Dashboard = () => {
     setIsNewMachineModalOpen(false);
   }
 
+  console.log({ machines: machines });
+
+  console.log({
+    subscribeData: dataSubscribe,
+  });
+
   return (
     <>
       <MuiContainer container>
@@ -28,17 +43,21 @@ const Dashboard = () => {
         </TitleContainer>
 
         {machines &&
-          machines.map((item) => (
-            <Item item xs={4}>
-              <CardMachine
-                title={item.machineName}
-                key={item._id}
-                isOn={true}
-                state={"AUTO"}
-                urlConnection={item.urlConnection}
-              />
-            </Item>
-          ))}
+          machines.map((machine, index) => {
+            return (
+              <Item key={index} item xs={4}>
+                <CardMachine
+                  index={index}
+                  title={machine.machineName}
+                  key={machine._id}
+                  isOn={true}
+                  state={"AUTO"}
+                  messages={messages}
+                  topic={machine.urlConnection}
+                />
+              </Item>
+            );
+          })}
 
         <ButtonComponent onClick={handleOpenNewMachineModal}>
           Adicionar Máquina
