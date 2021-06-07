@@ -48,8 +48,9 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
         alert(axiosError.response?.data.message);
       }
     }
-
-    loadMachines();
+    if (localStorage.getItem('@ezinspec:jwt_access')) {
+      loadMachines();
+    }
   }, []);
 
   async function createMachine({
