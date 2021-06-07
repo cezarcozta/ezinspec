@@ -6,11 +6,11 @@ import { ToastProvider } from "./Toast";
 
 const AppProvider: React.FC = ({ children }) => (
   <AuthProvider>
-    <MachinesProvider>
-      <LoaderProvider>
+    <LoaderProvider>
+      <MachinesProvider>
         <ToastProvider>{children}</ToastProvider>
-      </LoaderProvider>
-    </MachinesProvider>
+      </MachinesProvider>
+    </LoaderProvider>
   </AuthProvider>
 );
 

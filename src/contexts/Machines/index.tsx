@@ -49,7 +49,9 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
       }
     }
 
-    loadMachines();
+    if (localStorage.getItem("@ezinspec:jwt_access")) {
+      loadMachines();
+    }
   }, []);
 
   async function createMachine({
