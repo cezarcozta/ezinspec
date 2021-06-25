@@ -5,21 +5,27 @@ import CardMachine from "../../components/CardMachine";
 import { NewMachineModal } from "../../components/NewMachineModal";
 import { useMachine } from "../../contexts/Machines";
 import { Item, MuiContainer, Title, TitleContainer } from "./styles";
+
 const Dashboard = () => {
   const { machines } = useMachine();
 
-  const [messages, setMessages] = useState<IMessage[]>([]);
+  const [isNewMachineModalOpen, setIsNewMachineModalOpen] = useState(false);
+
+  const [latest, setLatest] = useState<IMessage | undefined>();
+  const [machineState, setMachineState] = useState<IMessage | undefined>();
 
   const dataSubscribe = useSubscription(
-    machines.map((machine) => machine.urlConnection)
+    machines.map((machine) => machine.urlConnectionState)
   );
+
+  console.log({
+    dataSubscribe: dataSubscribe,
+  })
 
   useEffect(() => {
     if (dataSubscribe.message)
-      setMessages((msgs: any) => [...msgs, dataSubscribe.message]);
+      setMachineState(dataSubscribe.message);
   }, [dataSubscribe.message]);
-
-  const [isNewMachineModalOpen, setIsNewMachineModalOpen] = useState(false);
 
   function handleOpenNewMachineModal() {
     setIsNewMachineModalOpen(true);
@@ -28,12 +34,6 @@ const Dashboard = () => {
   function handleCloseNewMachineModal() {
     setIsNewMachineModalOpen(false);
   }
-
-  console.log({ machines: machines });
-
-  console.log({
-    subscribeData: dataSubscribe,
-  });
 
   return (
     <>
@@ -50,10 +50,9 @@ const Dashboard = () => {
                   index={index}
                   title={machine.machineName}
                   key={machine._id}
-                  isOn={true}
-                  state={"AUTO"}
-                  messages={messages}
-                  topic={machine.urlConnection}
+                  state={machineState?.message?.toString()}
+                  messages={machineState}
+                  topic={[machine.urlConnectionLatest, machine.urlConnectionState]}
                 />
               </Item>
             );

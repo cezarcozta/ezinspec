@@ -4,7 +4,7 @@ import {
   ReactNode,
   useContext,
   useEffect,
-  useState,
+  useState
 } from "react";
 import { IMachineDTO } from "../../dtos/Machine";
 import { api } from "../../services/api";
@@ -28,6 +28,7 @@ type IMachinesProviderProps = {
 type IMachinesContext = {
   machines: IMachineDTO[];
   createMachine: (transaction: IMachineData) => Promise<void>;
+  deleteMachine: (machineId: string) => Promise<void>;
 };
 
 const MachineContexts = createContext<IMachinesContext>({} as IMachinesContext);
@@ -68,14 +69,20 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
       const { data } = await api.post("/machines/register", dataNewMachine);
 
       const {
+        _id,
         machineId,
         machineName,
         groupName,
-        _id,
         clientId,
-        urlConnection,
+        urlConnectionHistoric,
+        urlConnectionLatest,
+        urlConnectionProduction,
+        urlConnectionState,
+        urlConnectionTimes,
       } = data as IMachineDTO;
 
+      console.log({data: data});
+      
       setMachines([
         ...machines,
         {
@@ -84,12 +91,29 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
           machineName,
           groupName,
           clientId,
-          urlConnection,
-        },
+          urlConnectionHistoric,
+          urlConnectionLatest,
+          urlConnectionProduction,
+          urlConnectionState,
+          urlConnectionTimes
+        }
       ]);
     } catch (error) {
       const axiosError = error as AxiosError;
       console.log({ error: axiosError });
+      alert(axiosError.response?.data.message);
+    }
+  }
+
+  async function deleteMachine(machineId: string) {
+    try{
+      await api.delete(`/machines/${machineId}`);
+      setMachines(machines.filter(machine => machine._id !== machineId));
+    }catch(error){
+      const axiosError = error as AxiosError;
+      console.log({
+        error: axiosError,
+      });
       alert(axiosError.response?.data.message);
     }
   }
@@ -98,6 +122,7 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
       value={{
         machines,
         createMachine,
+        deleteMachine,
       }}
     >
       {children}

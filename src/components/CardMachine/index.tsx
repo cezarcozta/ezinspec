@@ -6,47 +6,46 @@ import {
   CardComponentContent,
   CardComponentHeader,
   PowerContent,
-  StateContent,
+  StateContent
 } from "./styles";
 
 type ICardMachine = {
   title: string;
-  isOn?: boolean;
-  state?: "AUTO" | "MANUAL" | "STOPPED";
-  messages?: IMessage[];
+  state?: string | undefined;
+  messages?: IMessage | undefined;
   topic: string | string[];
   index: number;
 };
 
 const CardMachine: React.FC<ICardMachine> = ({
   title,
-  isOn,
   state,
   messages,
   topic,
   index,
 }) => {
+  
   return (
     <CardComponent>
       <CardComponentHeader title={title + ` - ${String(index)}`} />
 
       <CardComponentContent>
         <PowerContent>
-          <div className={isOn ? "on" : ""}>ON</div>
-          <div className={isOn ? "" : "off"}>OFF</div>
+          <div className={state === "3" ? "on" : ""}>ON</div>
+          <div className={state === "0" ? "off" : ""}>OFF</div>
         </PowerContent>
       </CardComponentContent>
 
       <CardComponentContent>
         <StateContent>
           <Chip
-            className={state ? "on" : ""}
+            className={state === "0" ? "on" : ""}
             label="PARADA"
             size="small"
             style={{ margin: "2px" }}
           />
           <Chip
-            className={state !== "AUTO" ? (state === "MANUAL" ? "" : "") : ""}
+            className={state !== "0" ? (state === "3" ? "" : "") : ""}
             label="MANUAL"
             size="small"
             style={{ margin: "1px" }}
@@ -61,20 +60,7 @@ const CardMachine: React.FC<ICardMachine> = ({
       </CardComponentContent>
 
       <CardComponentContent>
-        {messages?.find((item) => item.topic === topic)?.message?.toString()}
-        {/* <Typography>{dataSubscribe.connectionStatus.toString()}</Typography>
-        <Typography>
-          {dataSubscribe.message ? dataSubscribe.message?.message : null}
-        </Typography>
-        <Typography>
-          {dataSubscribe.client ? dataSubscribe.client.connected : null}
-        </Typography>
-        <Grid item>{dataSubscribe.topic ? dataSubscribe.topic : null}</Grid> */}
-        {/* <TimeContent>
-          <Chip label={date} style={{ margin: "2px" }} />
-          <Chip label={"Ultimo Ciclo"} style={{ margin: "2px" }} />
-          <Chip label={"Ciclos até o momento"} style={{ margin: "2px" }} />
-        </TimeContent> */}
+        {messages?.topic === topic[0] ? messages?.message :  undefined}
       </CardComponentContent>
     </CardComponent>
   );
