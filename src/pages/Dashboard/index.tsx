@@ -17,8 +17,8 @@ const Dashboard = () => {
   const { message } = useSubscription([
     "portal/6094c301bfe6e9001fda9f2a/0000001/latest",
     "portal/6094c301bfe6e9001fda9f2a/0000001/state",
-    // "portal/6094c301bfe6e9001fda9f2a/0000002/latest",
-    // "portal/6094c301bfe6e9001fda9f2a/0000002/state",
+    "portal/6094c301bfe6e9001fda9f2a/0000002/latest",
+    "portal/6094c301bfe6e9001fda9f2a/0000002/state",
     // "portal/6094c301bfe6e9001fda9f2a/0000001/production",
   ]);
 
@@ -50,6 +50,7 @@ const Dashboard = () => {
             return (
               <Item key={index} item xs={4}>
                 <CardMachine
+                  id={machine._id}
                   index={index}
                   title={machine.machineName}
                   key={machine._id}
@@ -63,13 +64,13 @@ const Dashboard = () => {
             );
           })}
 
-        <ButtonComponent onClick={handleOpenNewMachineModal}>
-          Adicionar Máquina
-        </ButtonComponent>
         {/* <>
           <span>{JSON.stringify(messages)}</span>
         </> */}
       </MuiContainer>
+      <ButtonComponent onClick={handleOpenNewMachineModal}>
+        Adicionar Máquina
+      </ButtonComponent>
       <NewMachineModal
         isOpen={isNewMachineModalOpen}
         onRequestClose={handleCloseNewMachineModal}

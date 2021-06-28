@@ -4,6 +4,11 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 
+export const Container = styled.div`
+   display: flex;
+   flex-direction: column;
+`;
+
 export const CardComponent = styled(Card)`
    width: 198px;
 
@@ -27,6 +32,10 @@ export const CardComponentHeader = styled(CardHeader)`
 export const CardComponentContent = styled(CardContent)`
    margin: 5px;
    background: #F3F3F3;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
 
    border: 0.942857px solid #A09F9F;
    box-sizing: border-box;

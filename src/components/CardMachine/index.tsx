@@ -1,15 +1,20 @@
 import { Chip } from "@material-ui/core";
 import { IMessageStructure } from "mqtt-react-hooks";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useMachine } from "../../contexts/Machines";
+import Button from "../Button";
 import {
   CardComponent,
   CardComponentContent,
   CardComponentHeader,
+  Container,
   PowerContent,
   StateContent,
 } from "./styles";
 
 type ICardMachine = {
+  id: string;
   title: string;
   messages: IMessageStructure;
   staticMessages: any[];
@@ -20,6 +25,7 @@ type ICardMachine = {
 };
 
 const CardMachine: React.FC<ICardMachine> = ({
+  id,
   title,
   messages,
   staticMessages,
@@ -28,6 +34,10 @@ const CardMachine: React.FC<ICardMachine> = ({
   productionTopic,
   index,
 }) => {
+  const { push } = useHistory();
+
+  const { deleteMachine } = useMachine();
+
   const [machineState, setMachineState] = useState<any>();
   const [machineLatest, setMachineLatest] = useState<any>();
 
@@ -41,53 +51,65 @@ const CardMachine: React.FC<ICardMachine> = ({
       messages.topic === latestTopic ? messages.message : "deu ruim"
     );
   }, [latestTopic, messages, stateTopic, staticMessages]);
+
+  const handleDetails = () => {
+    push(`/machines/${id}`);
+  };
+
+  const handleDelete = async () => {
+    await deleteMachine(id);
+  };
   return (
-    <CardComponent>
-      <CardComponentHeader title={title + ` - ${String(index)}`} />
+    <Container>
+      <CardComponent>
+        <CardComponentHeader title={title + ` - ${String(index)}`} />
 
-      <CardComponentContent>
-        <PowerContent>
-          <div className={machineState === "3" ? "on" : ""}>ON</div>
-          <div className={machineState === "0" ? "off" : ""}>OFF</div>
-        </PowerContent>
-      </CardComponentContent>
+        <CardComponentContent>
+          <PowerContent>
+            <div className={machineState === "3" ? "on" : ""}>ON</div>
+            <div className={machineState === "0" ? "off" : ""}>OFF</div>
+          </PowerContent>
+        </CardComponentContent>
 
-      <CardComponentContent>
-        <StateContent>
-          <Chip
-            className={machineState === "0" ? "on" : ""}
-            label="PARADA"
-            size="small"
-            style={{ margin: "2px" }}
-          />
-          <Chip
-            className={
-              machineState !== "0" ? (machineState === "3" ? "" : "") : ""
-            }
-            label="MANUAL"
-            size="small"
-            style={{ margin: "1px" }}
-          />
-          <Chip
-            className={machineState ? "on" : ""}
-            label="AUTO"
-            size="small"
-            style={{ margin: "2px" }}
-          />
-        </StateContent>
-      </CardComponentContent>
+        <CardComponentContent>
+          <StateContent>
+            <Chip
+              className={machineState === "0" ? "on" : ""}
+              label="PARADA"
+              size="small"
+              style={{ margin: "2px" }}
+            />
+            <Chip
+              className={
+                machineState !== "0" ? (machineState === "3" ? "" : "") : ""
+              }
+              label="MANUAL"
+              size="small"
+              style={{ margin: "1px" }}
+            />
+            <Chip
+              className={machineState === "3" ? "on" : ""}
+              label="AUTO"
+              size="small"
+              style={{ margin: "2px" }}
+            />
+          </StateContent>
+        </CardComponentContent>
 
-      {/* <CardComponentContent>
+        {/* <CardComponentContent>
         {messages && messages.find((msg) => msg.topic === stateTopic)?.message}
       </CardComponentContent> */}
 
-      <CardComponentContent>{machineLatest}</CardComponentContent>
+        <CardComponentContent>
+          {machineLatest && machineLatest}
+        </CardComponentContent>
 
-      {/* <CardComponentContent>
-        {messages &&
-          messages.find((msg) => msg.topic === productionTopic)?.message}
-      </CardComponentContent> */}
-    </CardComponent>
+        <CardComponentContent>
+          <Button onClick={handleDelete}>Excluir</Button>
+          <Button onClick={handleDetails}>Detalhes</Button>
+        </CardComponentContent>
+      </CardComponent>
+    </Container>
   );
 };
 
