@@ -11,21 +11,28 @@ const Dashboard = () => {
 
   const [isNewMachineModalOpen, setIsNewMachineModalOpen] = useState(false);
 
-  const [latest, setLatest] = useState<IMessage | undefined>();
-  const [machineState, setMachineState] = useState<IMessage | undefined>();
+  const [latest, setLatest] = useState<any>([]);
+  const [state, setState] = useState<string | IMessage | undefined>();
 
-  const dataSubscribe = useSubscription(
-    machines.map((machine) => machine.urlConnectionState)
+  // const machinesTopicLatest = machines.map(
+  //   (machine) => machine.urlConnectionLatest
+  // );
+  // const machinesTopicState = machines.map(
+  //   (machine) => machine.urlConnectionState
+  // );
+
+  // const LatestTopicStateTopic = machinesTopicLatest.concat(machinesTopicState);
+
+  const { message, connectionStatus } = useSubscription(
+    "portal/6094c301bfe6e9001fda9f2a/0000001/latest"
+  );
+  const dataSubscribeTestState = useSubscription(
+    "portal/6094c301bfe6e9001fda9f2a/0000001/state"
   );
 
-  console.log({
-    dataSubscribe: dataSubscribe,
-  })
-
   useEffect(() => {
-    if (dataSubscribe.message)
-      setMachineState(dataSubscribe.message);
-  }, [dataSubscribe.message]);
+    if (message) setLatest((msgs: any) => [...msgs, message]);
+  }, [message]);
 
   function handleOpenNewMachineModal() {
     setIsNewMachineModalOpen(true);
@@ -34,6 +41,8 @@ const Dashboard = () => {
   function handleCloseNewMachineModal() {
     setIsNewMachineModalOpen(false);
   }
+
+  // console.log(dataSubscribe);
 
   return (
     <>
@@ -50,9 +59,9 @@ const Dashboard = () => {
                   index={index}
                   title={machine.machineName}
                   key={machine._id}
-                  state={machineState?.message?.toString()}
-                  messages={machineState}
-                  topic={[machine.urlConnectionLatest, machine.urlConnectionState]}
+                  latest={latest}
+                  // state={state}
+                  //subscribe={[dataSubscribeTestState]}
                 />
               </Item>
             );
@@ -61,6 +70,12 @@ const Dashboard = () => {
         <ButtonComponent onClick={handleOpenNewMachineModal}>
           Adicionar Máquina
         </ButtonComponent>
+
+        <>
+          <span>{connectionStatus}</span>
+          <hr />
+          <span>{JSON.stringify(latest)}</span>
+        </>
       </MuiContainer>
       <NewMachineModal
         isOpen={isNewMachineModalOpen}
