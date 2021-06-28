@@ -6,12 +6,8 @@ import {
   ListItemText,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import AssessmentOutlinedIcon from "@material-ui/icons/AssessmentOutlined";
-import CastConnectedOutlinedIcon from "@material-ui/icons/CastConnectedOutlined";
 import DashboardOutlinedIcon from "@material-ui/icons/DashboardOutlined";
 import ExitToAppOutlined from "@material-ui/icons/ExitToAppOutlined";
-import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
-import TrendingUpOutlinedIcon from "@material-ui/icons/TrendingUpOutlined";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth";
@@ -56,7 +52,7 @@ const Sidebar: React.FC = ({ children }) => {
               <ListItemText primary={"Dashboard"} />
             </ListItem>
           </Link>
-          <Link to="#" className={classes.link}>
+          {/* <Link to="#" className={classes.link}>
             <ListItem button>
               <ListItemIcon>
                 <CastConnectedOutlinedIcon color="primary" />
@@ -87,7 +83,7 @@ const Sidebar: React.FC = ({ children }) => {
               </ListItemIcon>
               <ListItemText primary={"Métricas"} />
             </ListItem>
-          </Link>
+          </Link> */}
           <Link to="#" className={classes.link}>
             <ListItem button onClick={() => signOut()}>
               <ListItemIcon>

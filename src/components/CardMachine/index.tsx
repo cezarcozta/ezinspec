@@ -1,4 +1,6 @@
-import React from "react";
+import { Chip } from "@material-ui/core";
+import { IMessageStructure } from "mqtt-react-hooks";
+import React, { useEffect, useState } from "react";
 import {
   CardComponent,
   CardComponentContent,
@@ -9,7 +11,8 @@ import {
 
 type ICardMachine = {
   title: string;
-  messages: any[];
+  messages: IMessageStructure;
+  staticMessages: any[];
   latestTopic: string;
   stateTopic: string;
   productionTopic: string;
@@ -19,39 +22,54 @@ type ICardMachine = {
 const CardMachine: React.FC<ICardMachine> = ({
   title,
   messages,
+  staticMessages,
   latestTopic,
   stateTopic,
   productionTopic,
   index,
 }) => {
-  const state = messages.find((msg) => msg.topic === stateTopic)?.message;
+  const [machineState, setMachineState] = useState<any>();
+  const [machineLatest, setMachineLatest] = useState<any>();
+
+  useEffect(() => {
+    setMachineState(
+      staticMessages &&
+        staticMessages.find((msg) => msg.topic === stateTopic)?.message
+    );
+
+    setMachineLatest(
+      messages.topic === latestTopic ? messages.message : "deu ruim"
+    );
+  }, [latestTopic, messages, stateTopic, staticMessages]);
   return (
     <CardComponent>
       <CardComponentHeader title={title + ` - ${String(index)}`} />
 
       <CardComponentContent>
         <PowerContent>
-          <div className={state === "3" ? "on" : ""}>ON</div>
-          <div className={state === "0" ? "off" : ""}>OFF</div>
+          <div className={machineState === "3" ? "on" : ""}>ON</div>
+          <div className={machineState === "0" ? "off" : ""}>OFF</div>
         </PowerContent>
       </CardComponentContent>
 
       <CardComponentContent>
         <StateContent>
           <Chip
-            className={state === "0" ? "on" : ""}
+            className={machineState === "0" ? "on" : ""}
             label="PARADA"
             size="small"
             style={{ margin: "2px" }}
           />
           <Chip
-            className={state !== "0" ? (state === "3" ? "" : "") : ""}
+            className={
+              machineState !== "0" ? (machineState === "3" ? "" : "") : ""
+            }
             label="MANUAL"
             size="small"
             style={{ margin: "1px" }}
           />
           <Chip
-            className={state ? "on" : ""}
+            className={machineState ? "on" : ""}
             label="AUTO"
             size="small"
             style={{ margin: "2px" }}
@@ -59,13 +77,11 @@ const CardMachine: React.FC<ICardMachine> = ({
         </StateContent>
       </CardComponentContent>
 
-      <CardComponentContent>
+      {/* <CardComponentContent>
         {messages && messages.find((msg) => msg.topic === stateTopic)?.message}
-      </CardComponentContent>
+      </CardComponentContent> */}
 
-      <CardComponentContent>
-        {messages && messages.find((msg) => msg.topic === latestTopic)?.message}
-      </CardComponentContent>
+      <CardComponentContent>{machineLatest}</CardComponentContent>
 
       {/* <CardComponentContent>
         {messages &&
