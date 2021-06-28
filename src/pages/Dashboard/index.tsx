@@ -1,4 +1,4 @@
-import { IMessage, useSubscription } from "mqtt-react-hooks";
+import { useSubscription } from "mqtt-react-hooks";
 import { useEffect, useState } from "react";
 import { ButtonComponent } from "../../components/Button/styles";
 import CardMachine from "../../components/CardMachine";
@@ -11,27 +11,16 @@ const Dashboard = () => {
 
   const [isNewMachineModalOpen, setIsNewMachineModalOpen] = useState(false);
 
-  const [latest, setLatest] = useState<any>([]);
-  const [state, setState] = useState<string | IMessage | undefined>();
+  const [messages, setMessages] = useState<any>([]);
 
-  // const machinesTopicLatest = machines.map(
-  //   (machine) => machine.urlConnectionLatest
-  // );
-  // const machinesTopicState = machines.map(
-  //   (machine) => machine.urlConnectionState
-  // );
-
-  // const LatestTopicStateTopic = machinesTopicLatest.concat(machinesTopicState);
-
-  const { message, connectionStatus } = useSubscription(
-    "portal/6094c301bfe6e9001fda9f2a/0000001/latest"
-  );
-  const dataSubscribeTestState = useSubscription(
-    "portal/6094c301bfe6e9001fda9f2a/0000001/state"
-  );
+  const { message } = useSubscription([
+    "portal/6094c301bfe6e9001fda9f2a/0000001/latest",
+    "portal/6094c301bfe6e9001fda9f2a/0000001/state",
+    // "portal/6094c301bfe6e9001fda9f2a/0000001/production",
+  ]);
 
   useEffect(() => {
-    if (message) setLatest((msgs: any) => [...msgs, message]);
+    if (message) setMessages((msg: any) => [...msg, message]);
   }, [message]);
 
   function handleOpenNewMachineModal() {
@@ -41,8 +30,6 @@ const Dashboard = () => {
   function handleCloseNewMachineModal() {
     setIsNewMachineModalOpen(false);
   }
-
-  // console.log(dataSubscribe);
 
   return (
     <>
@@ -59,9 +46,10 @@ const Dashboard = () => {
                   index={index}
                   title={machine.machineName}
                   key={machine._id}
-                  latest={latest}
-                  // state={state}
-                  //subscribe={[dataSubscribeTestState]}
+                  latestTopic={machine.urlConnectionLatest}
+                  stateTopic={machine.urlConnectionState}
+                  productionTopic={machine.urlConnectionProduction}
+                  messages={messages}
                 />
               </Item>
             );
@@ -70,12 +58,9 @@ const Dashboard = () => {
         <ButtonComponent onClick={handleOpenNewMachineModal}>
           Adicionar Máquina
         </ButtonComponent>
-
-        <>
-          <span>{connectionStatus}</span>
-          <hr />
-          <span>{JSON.stringify(latest)}</span>
-        </>
+        {/* <>
+          <span>{JSON.stringify(messages)}</span>
+        </> */}
       </MuiContainer>
       <NewMachineModal
         isOpen={isNewMachineModalOpen}

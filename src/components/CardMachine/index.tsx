@@ -3,69 +3,74 @@ import {
   CardComponent,
   CardComponentContent,
   CardComponentHeader,
+  PowerContent,
+  StateContent,
 } from "./styles";
 
 type ICardMachine = {
   title: string;
-  // state: string | IMessage | undefined;
-  latest: string | undefined;
-  // subscribe: IUseSubscription[];
+  messages: any[];
+  latestTopic: string;
+  stateTopic: string;
+  productionTopic: string;
   index: number;
 };
 
 const CardMachine: React.FC<ICardMachine> = ({
   title,
-  // state,
-  latest,
-  // subscribe,
+  messages,
+  latestTopic,
+  stateTopic,
+  productionTopic,
   index,
 }) => {
-  console.log(latest);
+  const state = messages.find((msg) => msg.topic === stateTopic)?.message;
   return (
     <CardComponent>
       <CardComponentHeader title={title + ` - ${String(index)}`} />
 
-      {/* <CardComponentContent>
+      <CardComponentContent>
         <PowerContent>
-          <div className={subscribe[1].message?.message === "3" ? "on" : ""}>
-            ON
-          </div>
-          <div className={subscribe[1].message?.message === "0" ? "off" : ""}>
-            OFF
-          </div>
+          <div className={state === "3" ? "on" : ""}>ON</div>
+          <div className={state === "0" ? "off" : ""}>OFF</div>
         </PowerContent>
       </CardComponentContent>
 
       <CardComponentContent>
         <StateContent>
           <Chip
-            className={subscribe[1].message?.message === "0" ? "on" : ""}
+            className={state === "0" ? "on" : ""}
             label="PARADA"
             size="small"
             style={{ margin: "2px" }}
           />
           <Chip
-            className={
-              subscribe[1].message?.message !== "0"
-                ? subscribe[1].message?.message === "3"
-                  ? ""
-                  : ""
-                : ""
-            }
+            className={state !== "0" ? (state === "3" ? "" : "") : ""}
             label="MANUAL"
             size="small"
             style={{ margin: "1px" }}
           />
           <Chip
-            className={subscribe[1].message?.message ? "on" : ""}
+            className={state ? "on" : ""}
             label="AUTO"
             size="small"
             style={{ margin: "2px" }}
           />
         </StateContent>
-      </CardComponentContent> */}
+      </CardComponentContent>
 
-      <CardComponentContent>{latest && latest}</CardComponentContent>
+      <CardComponentContent>
+        {messages && messages.find((msg) => msg.topic === stateTopic)?.message}
+      </CardComponentContent>
+
+      <CardComponentContent>
+        {messages && messages.find((msg) => msg.topic === latestTopic)?.message}
+      </CardComponentContent>
+
+      {/* <CardComponentContent>
+        {messages &&
+          messages.find((msg) => msg.topic === productionTopic)?.message}
+      </CardComponentContent> */}
     </CardComponent>
   );
 };
