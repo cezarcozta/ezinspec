@@ -20,6 +20,45 @@ export const CardComponent = styled(Card)`
    `};
 `;
 
+export const ProductionComponent = styled(Card)`
+   width:75%;
+
+   margin: 0.5rem;
+
+   ${({theme}) => `
+      background-color: ${theme.palette.primary.contrastText};
+      color: ${theme.palette.common.darkGray};
+
+      border-radius: ${theme.shape.borderRadius};
+   `};
+`;
+
+export const HistoricComponent = styled(Card)`
+   width:100%;
+
+   margin: 0.5rem;
+
+   ${({theme}) => `
+      background-color: ${theme.palette.primary.contrastText};
+      color: ${theme.palette.common.darkGray};
+
+      border-radius: ${theme.shape.borderRadius};
+   `};
+`;
+
+export const TimeComponent = styled(Card)`
+   width:25%;
+
+   margin: 0.5rem;
+
+   ${({theme}) => `
+      background-color: ${theme.palette.primary.contrastText};
+      color: ${theme.palette.common.darkGray};
+
+      border-radius: ${theme.shape.borderRadius};
+   `};
+`;
+
 export const CardComponentHeader = styled(CardHeader)`
    ${({theme}) => `
       background-color: ${theme.palette.primary.main};
@@ -29,14 +68,39 @@ export const CardComponentHeader = styled(CardHeader)`
    text-align: center;
 `;
 
-export const CardComponentContent = styled(CardContent)`
+export const InsideCardComponentHeader = styled(CardHeader)`
+   ${({theme}) => `
+      background-color: ${theme.palette.primary.main};
+      color: ${theme.palette.primary.contrastText};
+   `};
+   height: 2rem;
+   text-align: center;
+`;
+
+
+export const TablesRealTimeContainer = styled(CardContent)`
    margin: 5px;
    background: #F3F3F3;
 
    display: flex;
-   align-items: center;
-   justify-content: center;
+   align-items: flex-start;
+   justify-content: flex-start;
 
    border: 0.942857px solid #A09F9F;
    box-sizing: border-box;
+   height: 25%;
 `;
+
+export const TableHistoricContainer = styled(CardContent)`
+   margin: 5px;
+   background: #F3F3F3;
+
+   display: flex;
+   align-items: flex-start;
+   justify-content: flex-start;
+
+   border: 0.942857px solid #A09F9F;
+   box-sizing: border-box;
+   height: 75%;
+`;
+
