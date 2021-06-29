@@ -53,7 +53,10 @@ const CardMachine: React.FC<ICardMachine> = ({
   }, [latestTopic, messages, stateTopic, staticMessages]);
 
   const handleDetails = () => {
-    push(`/machines/${id}`);
+    console.log({ id: id });
+    push(`/machines/${id}`, {
+      idMachine: id,
+    });
   };
 
   const handleDelete = async () => {
@@ -106,7 +109,15 @@ const CardMachine: React.FC<ICardMachine> = ({
 
         <CardComponentContent>
           <Button onClick={handleDelete}>Excluir</Button>
-          <Button onClick={handleDetails}>Detalhes</Button>
+          <Button
+            onClick={() =>
+              push(`/machines/${id}`, {
+                idMachine: id,
+              })
+            }
+          >
+            Detalhes
+          </Button>
         </CardComponentContent>
       </CardComponent>
     </Container>

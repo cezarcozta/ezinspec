@@ -4,7 +4,7 @@ import {
   ReactNode,
   useContext,
   useEffect,
-  useState
+  useState,
 } from "react";
 import { IMachineDTO } from "../../dtos/Machine";
 import { api } from "../../services/api";
@@ -29,6 +29,7 @@ type IMachinesContext = {
   machines: IMachineDTO[];
   createMachine: (transaction: IMachineData) => Promise<void>;
   deleteMachine: (machineId: string) => Promise<void>;
+  findMachineById(machineId: string): IMachineDTO;
 };
 
 const MachineContexts = createContext<IMachinesContext>({} as IMachinesContext);
@@ -81,8 +82,8 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
         urlConnectionTimes,
       } = data as IMachineDTO;
 
-      console.log({data: data});
-      
+      console.log({ data: data });
+
       setMachines([
         ...machines,
         {
@@ -95,8 +96,8 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
           urlConnectionLatest,
           urlConnectionProduction,
           urlConnectionState,
-          urlConnectionTimes
-        }
+          urlConnectionTimes,
+        },
       ]);
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -106,10 +107,10 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
   }
 
   async function deleteMachine(machineId: string) {
-    try{
+    try {
       await api.delete(`/machines/${machineId}`);
-      setMachines(machines.filter(machine => machine._id !== machineId));
-    }catch(error){
+      setMachines(machines.filter((machine) => machine._id !== machineId));
+    } catch (error) {
       const axiosError = error as AxiosError;
       console.log({
         error: axiosError,
@@ -117,12 +118,20 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
       alert(axiosError.response?.data.message);
     }
   }
+
+  function findMachineById(machineId: string): IMachineDTO {
+    const machine = machines.find((machine) => machine._id === machineId);
+    if (!machine) return {} as IMachineDTO;
+    return machine;
+  }
+
   return (
     <MachineContexts.Provider
       value={{
         machines,
         createMachine,
         deleteMachine,
+        findMachineById,
       }}
     >
       {children}

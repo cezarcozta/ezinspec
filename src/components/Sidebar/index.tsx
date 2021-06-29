@@ -44,7 +44,7 @@ const Sidebar: React.FC = ({ children }) => {
         </LogoContainer>
 
         <List>
-          <Link to="/dashboard" className={classes.link}>
+          <Link to="/machines" className={classes.link}>
             <ListItem button>
               <ListItemIcon>
                 <DashboardOutlinedIcon color="primary" />

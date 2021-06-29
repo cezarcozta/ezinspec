@@ -17,8 +17,8 @@ const Dashboard = () => {
   const { message } = useSubscription([
     "portal/6094c301bfe6e9001fda9f2a/0000001/latest",
     "portal/6094c301bfe6e9001fda9f2a/0000001/state",
-    "portal/6094c301bfe6e9001fda9f2a/0000002/latest",
-    "portal/6094c301bfe6e9001fda9f2a/0000002/state",
+    // "portal/6094c301bfe6e9001fda9f2a/0000002/latest",
+    // "portal/6094c301bfe6e9001fda9f2a/0000002/state",
     // "portal/6094c301bfe6e9001fda9f2a/0000001/production",
   ]);
 

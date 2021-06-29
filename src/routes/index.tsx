@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Switch } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Dashboard from "../pages/Dashboard";
 import LogIn from "../pages/LogIn";
-import Machines from "../pages/Machines";
-import Details from "../pages/Machines/Details";
+import Details from "../pages/MachineDetails";
 import RetrivievePassword from "../pages/RetrievePassword";
 import InputCode from "../pages/RetrievePassword/components/InputCode";
 import InputNewPassword from "../pages/RetrievePassword/components/InputNewPassword";
@@ -28,8 +27,7 @@ const Routes = () => {
         />
 
         <Sidebar>
-          <Route exact path="/dashboard" component={Dashboard} isPrivate />
-          <Route exact path="/machines" component={Machines} isPrivate />
+          <Route exact path="/machines" component={Dashboard} isPrivate />
           <Route exact path="/machines/:id" component={Details} isPrivate />
         </Sidebar>
       </Switch>
