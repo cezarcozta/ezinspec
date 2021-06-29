@@ -6,7 +6,9 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-import { useLocation } from "react-router-dom";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import { useHistory, useLocation } from "react-router-dom";
+import ButtonComponent from "../../components/Button";
 import { useMachine } from "../../contexts/Machines";
 import {
   CardComponent,
@@ -15,8 +17,7 @@ import {
   InsideCardComponentHeader,
   MuiContainer,
   ProductionComponent,
-  TableHistoricContainer,
-  TablesRealTimeContainer,
+  Row,
   TimeComponent,
 } from "./styles";
 
@@ -26,6 +27,7 @@ interface IState {
 
 const Details = () => {
   const { state } = useLocation();
+  const { goBack } = useHistory();
 
   const machineId = (state as IState).idMachine;
 
@@ -36,16 +38,22 @@ const Details = () => {
   return (
     <MuiContainer container>
       <CardComponent>
-        <CardComponentHeader title={machine.machineName} />
-
-        <TablesRealTimeContainer>
+        <CardComponentHeader
+          title={machine.machineName}
+          action={
+            <ButtonComponent onClick={goBack}>
+              <ChevronLeftIcon />
+              Voltar
+            </ButtonComponent>
+          }
+        />
+        <Row>
           <ProductionComponent>
             <InsideCardComponentHeader title="Produção em curso" />
             <TableContainer>
-              <Table>
+              <Table size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell>#</TableCell>
                     <TableCell>Data/Hora</TableCell>
                     <TableCell>Nº Ciclo</TableCell>
                     <TableCell>Ciclo</TableCell>
@@ -55,7 +63,20 @@ const Details = () => {
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell></TableCell>
+                    <TableCell scope="row">Data</TableCell>
+                    <TableCell scope="row">Data</TableCell>
+                    <TableCell scope="row">Data</TableCell>
+                    <TableCell scope="row">Data</TableCell>
+                    <TableCell scope="row">Data</TableCell>
+                    <TableCell scope="row">Data</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell scope="row">Data</TableCell>
+                    <TableCell scope="row">Data</TableCell>
+                    <TableCell scope="row">Data</TableCell>
+                    <TableCell scope="row">Data</TableCell>
+                    <TableCell scope="row">Data</TableCell>
+                    <TableCell scope="row">Data</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -65,10 +86,9 @@ const Details = () => {
           <TimeComponent>
             <InsideCardComponentHeader title="Tempos" />
             <TableContainer>
-              <Table>
+              <Table size="small">
                 <TableHead>
                   <TableRow>
-                    <TableCell>#</TableCell>
                     <TableCell>Ciclo</TableCell>
                     <TableCell>Injeção</TableCell>
                     <TableCell>Dosagem</TableCell>
@@ -81,45 +101,81 @@ const Details = () => {
                     <TableCell>Médio</TableCell>
                   </TableColumn> */}
                   <TableRow>
-                    <TableCell></TableCell>
+                    <TableCell scope="row"></TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
             </TableContainer>
           </TimeComponent>
-        </TablesRealTimeContainer>
+        </Row>
 
-        <TableHistoricContainer>
-          <HistoricComponent>
-            <InsideCardComponentHeader title="Histórico de produção" />
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>#</TableCell>
-                    <TableCell>Início</TableCell>
-                    <TableCell>Fim</TableCell>
-                    <TableCell>Ciclos Totais</TableCell>
-                    <TableCell>Ciclo Máximo</TableCell>
-                    <TableCell>Ciclo Minimo</TableCell>
-                    <TableCell>Ciclo Médio</TableCell>
-                    <TableCell>Injeção Máximo</TableCell>
-                    <TableCell>Injeção Minimo</TableCell>
-                    <TableCell>Injeção Médio</TableCell>
-                    <TableCell>Dosagem Máximo</TableCell>
-                    <TableCell>Dosagem Minimo</TableCell>
-                    <TableCell>Dosagem Médio</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell></TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </HistoricComponent>
-        </TableHistoricContainer>
+        <HistoricComponent>
+          <InsideCardComponentHeader title="Histórico de produção" />
+          <TableContainer style={{ margin: "10px" }}>
+            <Table stickyHeader size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell size="small">Início</TableCell>
+                  <TableCell size="small">Fim</TableCell>
+                  <TableCell size="small">Ciclos Totais</TableCell>
+                  <TableCell size="small">Ciclo Máx</TableCell>
+                  <TableCell size="small">Ciclo Min</TableCell>
+                  <TableCell size="small">Ciclo Méd</TableCell>
+                  <TableCell size="small">Injeção Máx</TableCell>
+                  <TableCell size="small">Injeção Min</TableCell>
+                  <TableCell size="small">Injeção Mé</TableCell>
+                  <TableCell size="small">Dosagem Máx</TableCell>
+                  <TableCell size="small">Dosagem Min</TableCell>
+                  <TableCell size="small">Dosagem Méd</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                  <TableCell scope="row">Data</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </HistoricComponent>
       </CardComponent>
     </MuiContainer>
   );

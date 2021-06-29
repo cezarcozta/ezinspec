@@ -1,3 +1,4 @@
+import AddBoxIcon from "@material-ui/icons/AddBox";
 import { useSubscription } from "mqtt-react-hooks";
 import { useEffect, useState } from "react";
 import { ButtonComponent } from "../../components/Button/styles";
@@ -68,8 +69,8 @@ const Dashboard = () => {
           <span>{JSON.stringify(messages)}</span>
         </> */}
       </MuiContainer>
-      <ButtonComponent onClick={handleOpenNewMachineModal}>
-        Adicionar Máquina
+      <ButtonComponent type="button" onClick={handleOpenNewMachineModal}>
+        <AddBoxIcon />
       </ButtonComponent>
       <NewMachineModal
         isOpen={isNewMachineModalOpen}

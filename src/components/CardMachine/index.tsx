@@ -1,4 +1,6 @@
 import { Chip } from "@material-ui/core";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
 import { IMessageStructure } from "mqtt-react-hooks";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -108,7 +110,9 @@ const CardMachine: React.FC<ICardMachine> = ({
         </CardComponentContent>
 
         <CardComponentContent>
-          <Button onClick={handleDelete}>Excluir</Button>
+          <Button onClick={handleDelete}>
+            <DeleteForeverIcon />
+          </Button>
           <Button
             onClick={() =>
               push(`/machines/${id}`, {
@@ -116,7 +120,7 @@ const CardMachine: React.FC<ICardMachine> = ({
               })
             }
           >
-            Detalhes
+            <DoubleArrowIcon />
           </Button>
         </CardComponentContent>
       </CardComponent>

@@ -5,7 +5,7 @@ export const ButtonComponent = styled(Button)`
    height: 40px;
    width: 160px;
    
-   margin: 10px;
+   margin: 1rem;
 
    ${({theme}) => `
       background-color: ${theme.palette.primary.main};
@@ -19,4 +19,5 @@ export const ButtonComponent = styled(Button)`
    `};
    
    font-weight: bold;
+   font-size: smaller;
 `;

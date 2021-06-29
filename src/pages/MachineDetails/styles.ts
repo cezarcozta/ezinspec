@@ -1,11 +1,14 @@
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 
 export const MuiContainer = styled(Grid)`
   height: 100vh;
+  width: 100%;
+  display: flex;
+flex-direction: row;
+
   padding: 1rem;
 `;
 
@@ -20,8 +23,13 @@ export const CardComponent = styled(Card)`
    `};
 `;
 
+export const Row = styled.div`
+   display: flex;
+   flex-direction: row;
+`;
+
 export const ProductionComponent = styled(Card)`
-   width:75%;
+   width:60%;
 
    margin: 0.5rem;
 
@@ -34,9 +42,7 @@ export const ProductionComponent = styled(Card)`
 `;
 
 export const HistoricComponent = styled(Card)`
-   width:100%;
-
-   margin: 0.5rem;
+   width:99%;
 
    ${({theme}) => `
       background-color: ${theme.palette.primary.contrastText};
@@ -47,7 +53,7 @@ export const HistoricComponent = styled(Card)`
 `;
 
 export const TimeComponent = styled(Card)`
-   width:25%;
+   width:40%;
 
    margin: 0.5rem;
 
@@ -75,32 +81,5 @@ export const InsideCardComponentHeader = styled(CardHeader)`
    `};
    height: 2rem;
    text-align: center;
-`;
-
-
-export const TablesRealTimeContainer = styled(CardContent)`
-   margin: 5px;
-   background: #F3F3F3;
-
-   display: flex;
-   align-items: flex-start;
-   justify-content: flex-start;
-
-   border: 0.942857px solid #A09F9F;
-   box-sizing: border-box;
-   height: 25%;
-`;
-
-export const TableHistoricContainer = styled(CardContent)`
-   margin: 5px;
-   background: #F3F3F3;
-
-   display: flex;
-   align-items: flex-start;
-   justify-content: flex-start;
-
-   border: 0.942857px solid #A09F9F;
-   box-sizing: border-box;
-   height: 75%;
 `;
 
