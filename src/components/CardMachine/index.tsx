@@ -6,6 +6,7 @@ import { IMessageStructure } from "mqtt-react-hooks";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useMachine } from "../../contexts/Machines";
+import { dataBRFormatter } from "../../utils/BRISODateFormatter";
 import Button from "../Button";
 import {
   CardComponent,
@@ -16,14 +17,19 @@ import {
   StateContent,
 } from "./styles";
 
-interface IData {
+type IDataLatest = {
   ciclo: number;
   dataInicial: Date;
   tc: number;
   td: number;
   tempoCicloAcumulado: number;
   ti: number;
-}
+};
+
+type IDataProduction = Pick<
+  IDataLatest,
+  "ciclo" | "dataInicial" | "tc" | "td" | "ti"
+>;
 
 type ICardMachine = {
   id: string;
@@ -51,7 +57,13 @@ const CardMachine: React.FC<ICardMachine> = ({
   const { deleteMachine } = useMachine();
 
   const [machineState, setMachineState] = useState<string>();
-  const [machineLatest, setMachineLatest] = useState<IData>({} as IData);
+  const [machineLatest, setMachineLatest] = useState<IDataLatest>(
+    {} as IDataLatest
+  );
+
+  // const [machineProduction, setMachineProduction] = useState<IDataProduction>(
+  //   {} as IDataProduction
+  // );
 
   useEffect(() => {
     setMachineState(
@@ -62,6 +74,10 @@ const CardMachine: React.FC<ICardMachine> = ({
     setMachineLatest(
       messages.topic === latestTopic ? JSON.parse(messages.message) : {}
     );
+
+    // setMachineProduction(
+    //   messages.topic === productionTopic ? JSON.parse(messages.message) : {}
+    // );
   }, [latestTopic, stateTopic, messages, staticMessages]);
 
   const handleDetails = () => {
@@ -75,7 +91,7 @@ const CardMachine: React.FC<ICardMachine> = ({
   const handleRefresh = () => {
     return;
   };
-  console.log("machineLatest", machineLatest);
+  console.log("machineLatest.ciclo", machineLatest.ciclo);
   return (
     <Container>
       <CardComponent>
@@ -117,14 +133,15 @@ const CardMachine: React.FC<ICardMachine> = ({
           </StateContent>
         </CardComponentContent>
 
-        {/* <CardComponentContent>
-        {messages && messages.find((msg) => msg.topic === stateTopic)?.message}
-      </CardComponentContent> */}
+        {/* <CardComponentContent isData>
+          {machineProduction.ciclo}
+        </CardComponentContent> */}
 
         <CardComponentContent isData>
           <span>
             <strong>Data Inicial: </strong>
-            {machineLatest && machineLatest.dataInicial}
+            {machineLatest.dataInicial &&
+              dataBRFormatter(machineLatest.dataInicial)}
           </span>
 
           <span>
@@ -145,6 +162,11 @@ const CardMachine: React.FC<ICardMachine> = ({
           <span>
             <strong>T.D: </strong>
             {machineLatest && machineLatest.ti}
+          </span>
+
+          <span>
+            <strong>Ciclos: </strong>
+            {machineLatest && machineLatest.tempoCicloAcumulado}
           </span>
         </CardComponentContent>
 

@@ -45,9 +45,11 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
   const { message } = useSubscription([
     "portal/6094c301bfe6e9001fda9f2a/0000001/latest",
     "portal/6094c301bfe6e9001fda9f2a/0000001/state",
+    // "portal/6094c301bfe6e9001fda9f2a/0000001/production",
+    // "portal/6094c301bfe6e9001fda9f2a/0000001/historic",
+    // "portal/6094c301bfe6e9001fda9f2a/0000001/times",
     // "portal/6094c301bfe6e9001fda9f2a/0000002/latest",
     // "portal/6094c301bfe6e9001fda9f2a/0000002/state",
-    // "portal/6094c301bfe6e9001fda9f2a/0000001/production",
   ]);
 
   useEffect(() => {
