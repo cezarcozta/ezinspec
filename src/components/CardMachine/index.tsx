@@ -165,7 +165,7 @@ const CardMachine: React.FC<ICardMachine> = ({
           </span>
 
           <span>
-            <strong>Ciclos: </strong>
+            <strong>Ciclos Acumulados: </strong>
             {machineLatest && machineLatest.tempoCicloAcumulado}
           </span>
         </CardComponentContent>
