@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const CardComponent = styled(Card)`
-   width: 198px;
+   width: 288px;
 
    ${({theme}) => `
       background-color: ${theme.palette.primary.contrastText};
@@ -29,16 +29,25 @@ export const CardComponentHeader = styled(CardHeader)`
    text-align: center;
 `;
 
-export const CardComponentContent = styled(CardContent)`
+type IData = {
+   isData: boolean;
+}
+
+export const CardComponentContent = styled(CardContent)<IData>`
    margin: 5px;
    background: #F3F3F3;
 
    display: flex;
    align-items: center;
+   flex-direction: ${props => props.isData ? 'column': 'row'};
    justify-content: center;
 
    border: 0.942857px solid #A09F9F;
    box-sizing: border-box;
+
+   span{
+      font-size: small;
+   }
 `;
 
 export const PowerContent = styled.div`
@@ -68,29 +77,32 @@ export const PowerContent = styled.div`
 
 export const StateContent = styled.div`
    display: flex;
-   flex-flow: column;
+   flex-flow: row;
    align-items: center;
    justify-content: center;
 
    .auto {
       background-color: #00D23B;
       color: #fff;
+      font-size: bold;
    }
    .stopped {
       background-color: #F31818;
       color: #fff;
+      font-size: bold;
    }
    .manual {
-      background-color: yellow;
+      background-color: #F6FB07;
       color: #fff;
+      font-size: bold;
    }
 `;
 
 export const TimeContent = styled.div`
-   display: flex;
-   flex-flow: column;
+   /* display: flex;
+   flex-direction: row;
    align-items: center;
-   justify-content: center;
+   justify-content: center; */
 `;
 
 export const Text = styled(Typography)``;

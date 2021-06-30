@@ -45,9 +45,9 @@ const Dashboard = () => {
             );
           })}
 
-        <>
+        {/* <>
           <span>{JSON.stringify(messages)}</span>
-        </>
+        </> */}
       </MuiContainer>
       <ButtonComponent type="button" onClick={handleOpenNewMachineModal}>
         <AddBoxIcon />

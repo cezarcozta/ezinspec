@@ -1,6 +1,7 @@
 import { Chip } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
+import RefreshIcon from "@material-ui/icons/Refresh";
 import { IMessageStructure } from "mqtt-react-hooks";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -14,6 +15,15 @@ import {
   PowerContent,
   StateContent,
 } from "./styles";
+
+interface IData {
+  ciclo: number;
+  dataInicial: Date;
+  tc: number;
+  td: number;
+  tempoCicloAcumulado: number;
+  ti: number;
+}
 
 type ICardMachine = {
   id: string;
@@ -40,8 +50,8 @@ const CardMachine: React.FC<ICardMachine> = ({
 
   const { deleteMachine } = useMachine();
 
-  const [machineState, setMachineState] = useState<any>();
-  const [machineLatest, setMachineLatest] = useState<any>();
+  const [machineState, setMachineState] = useState<string>();
+  const [machineLatest, setMachineLatest] = useState<IData>({} as IData);
 
   useEffect(() => {
     setMachineState(
@@ -50,26 +60,35 @@ const CardMachine: React.FC<ICardMachine> = ({
     );
 
     setMachineLatest(
-      messages.topic === latestTopic ? messages.message : "sem dados"
+      messages.topic === latestTopic ? JSON.parse(messages.message) : {}
     );
   }, [latestTopic, stateTopic, messages, staticMessages]);
 
+  const handleDetails = () => {
+    push(`/machines/${id}`, {
+      idMachine: id,
+    });
+  };
   const handleDelete = async () => {
     await deleteMachine(id);
   };
+  const handleRefresh = () => {
+    return;
+  };
+  console.log("machineLatest", machineLatest);
   return (
     <Container>
       <CardComponent>
-        <CardComponentHeader title={title + ` - ${String(index)}`} />
+        <CardComponentHeader title={title} />
 
-        <CardComponentContent>
+        <CardComponentContent isData={false}>
           <PowerContent>
             <div className={machineState === "3" ? "on" : ""}>ON</div>
             <div className={machineState !== "3" ? "off" : ""}>OFF</div>
           </PowerContent>
         </CardComponentContent>
 
-        <CardComponentContent>
+        <CardComponentContent isData={false}>
           <StateContent>
             <Chip
               className={machineState !== "3" ? "stopped" : ""}
@@ -102,21 +121,43 @@ const CardMachine: React.FC<ICardMachine> = ({
         {messages && messages.find((msg) => msg.topic === stateTopic)?.message}
       </CardComponentContent> */}
 
-        <CardComponentContent>
-          {machineLatest && machineLatest}
+        <CardComponentContent isData>
+          <span>
+            <strong>Data Inicial: </strong>
+            {machineLatest && machineLatest.dataInicial}
+          </span>
+
+          <span>
+            <strong>Ciclo Atual: </strong>
+            {machineLatest && machineLatest.ciclo}
+          </span>
+
+          <span>
+            <strong>T.C: </strong>
+            {machineLatest && machineLatest.tc}
+          </span>
+
+          <span>
+            <strong>T.I: </strong>
+            {machineLatest && machineLatest.td}
+          </span>
+
+          <span>
+            <strong>T.D: </strong>
+            {machineLatest && machineLatest.ti}
+          </span>
         </CardComponentContent>
 
-        <CardComponentContent>
+        <CardComponentContent isData={false}>
           <Button onClick={handleDelete}>
             <DeleteForeverIcon />
           </Button>
-          <Button
-            onClick={() =>
-              push(`/machines/${id}`, {
-                idMachine: id,
-              })
-            }
-          >
+
+          <Button onClick={handleRefresh}>
+            <RefreshIcon />
+          </Button>
+
+          <Button onClick={handleDetails}>
             <DoubleArrowIcon />
           </Button>
         </CardComponentContent>

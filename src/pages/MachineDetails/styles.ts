@@ -7,13 +7,15 @@ export const MuiContainer = styled(Grid)`
   height: 100vh;
   width: 100%;
   display: flex;
-flex-direction: row;
+  flex-direction: row;
 
   padding: 1rem;
 `;
 
 export const CardComponent = styled(Card)`
    width: 100%;
+   display: flex;
+   flex-direction: column;
 
    ${({theme}) => `
       background-color: ${theme.palette.primary.contrastText};

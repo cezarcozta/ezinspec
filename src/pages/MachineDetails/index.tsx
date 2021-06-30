@@ -39,7 +39,7 @@ const Details = () => {
     <MuiContainer container>
       <CardComponent>
         <CardComponentHeader
-          title={machine.machineName}
+          title={machine.machineName + " - " + machine.machineId}
           action={
             <ButtonComponent onClick={goBack}>
               <ChevronLeftIcon />
