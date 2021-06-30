@@ -26,10 +26,10 @@ type IDataLatest = {
   ti: number;
 };
 
-type IDataProduction = Pick<
-  IDataLatest,
-  "ciclo" | "dataInicial" | "tc" | "td" | "ti"
->;
+// type IDataProduction = Pick<
+//   IDataLatest,
+//   "ciclo" | "dataInicial" | "tc" | "td" | "ti"
+// >;
 
 type ICardMachine = {
   id: string;
