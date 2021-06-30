@@ -50,16 +50,9 @@ const CardMachine: React.FC<ICardMachine> = ({
     );
 
     setMachineLatest(
-      messages.topic === latestTopic ? messages.message : "deu ruim"
+      messages.topic === latestTopic ? messages.message : "sem dados"
     );
-  }, [latestTopic, messages, stateTopic, staticMessages]);
-
-  const handleDetails = () => {
-    console.log({ id: id });
-    push(`/machines/${id}`, {
-      idMachine: id,
-    });
-  };
+  }, [latestTopic, stateTopic, messages, staticMessages]);
 
   const handleDelete = async () => {
     await deleteMachine(id);
@@ -72,28 +65,32 @@ const CardMachine: React.FC<ICardMachine> = ({
         <CardComponentContent>
           <PowerContent>
             <div className={machineState === "3" ? "on" : ""}>ON</div>
-            <div className={machineState === "0" ? "off" : ""}>OFF</div>
+            <div className={machineState !== "3" ? "off" : ""}>OFF</div>
           </PowerContent>
         </CardComponentContent>
 
         <CardComponentContent>
           <StateContent>
             <Chip
-              className={machineState === "0" ? "on" : ""}
+              className={machineState !== "3" ? "stopped" : ""}
               label="PARADA"
               size="small"
               style={{ margin: "2px" }}
             />
             <Chip
               className={
-                machineState !== "0" ? (machineState === "3" ? "" : "") : ""
+                machineState !== "3"
+                  ? machineState === "2"
+                    ? "manual"
+                    : ""
+                  : ""
               }
               label="MANUAL"
               size="small"
               style={{ margin: "1px" }}
             />
             <Chip
-              className={machineState === "3" ? "on" : ""}
+              className={machineState === "3" ? "auto" : ""}
               label="AUTO"
               size="small"
               style={{ margin: "2px" }}

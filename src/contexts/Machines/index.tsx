@@ -1,4 +1,5 @@
 import { AxiosError } from "axios";
+import { IMessageStructure, useSubscription } from "mqtt-react-hooks";
 import {
   createContext,
   ReactNode,
@@ -30,12 +31,24 @@ type IMachinesContext = {
   createMachine: (transaction: IMachineData) => Promise<void>;
   deleteMachine: (machineId: string) => Promise<void>;
   findMachineById(machineId: string): IMachineDTO;
+  messages: IMessageStructure;
+  staticMessages: any[];
 };
 
 const MachineContexts = createContext<IMachinesContext>({} as IMachinesContext);
 
 export function MachinesProvider({ children }: IMachinesProviderProps) {
   const [machines, setMachines] = useState<IMachineDTO[]>([]);
+  const [messages, setMessages] = useState<any>([]);
+  const [staticMessages, setStaticMessages] = useState<any>([]);
+
+  const { message } = useSubscription([
+    "portal/6094c301bfe6e9001fda9f2a/0000001/latest",
+    "portal/6094c301bfe6e9001fda9f2a/0000001/state",
+    // "portal/6094c301bfe6e9001fda9f2a/0000002/latest",
+    // "portal/6094c301bfe6e9001fda9f2a/0000002/state",
+    // "portal/6094c301bfe6e9001fda9f2a/0000001/production",
+  ]);
 
   useEffect(() => {
     async function loadMachines() {
@@ -50,10 +63,18 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
         alert(axiosError.response?.data.message);
       }
     }
-    if (localStorage.getItem("@ezinspec:jwt_access")) {
+
+    const jwtToken = localStorage.getItem("@ezinspec:jwt_access");
+
+    if (jwtToken) {
       loadMachines();
+
+      if (message) {
+        setMessages(message);
+        setStaticMessages((msgs: any) => [...msgs, message]);
+      }
     }
-  }, []);
+  }, [message]);
 
   async function createMachine({
     machineId,
@@ -132,6 +153,8 @@ export function MachinesProvider({ children }: IMachinesProviderProps) {
         createMachine,
         deleteMachine,
         findMachineById,
+        messages,
+        staticMessages,
       }}
     >
       {children}

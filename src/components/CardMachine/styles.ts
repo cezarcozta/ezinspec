@@ -71,6 +71,19 @@ export const StateContent = styled.div`
    flex-flow: column;
    align-items: center;
    justify-content: center;
+
+   .auto {
+      background-color: #00D23B;
+      color: #fff;
+   }
+   .stopped {
+      background-color: #F31818;
+      color: #fff;
+   }
+   .manual {
+      background-color: yellow;
+      color: #fff;
+   }
 `;
 
 export const TimeContent = styled.div`
